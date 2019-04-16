@@ -12,17 +12,17 @@ namespace WAMekaWash.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class ProvinceId
+    public partial class Province
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ProvinceId()
+        public Province()
         {
             this.Customer = new HashSet<Customer>();
             this.District = new HashSet<District>();
             this.Local = new HashSet<Local>();
         }
     
-        public int ProvinceId1 { get; set; }
+        public int ProvinceId { get; set; }
         public string Name { get; set; }
         public int DepartmentId { get; set; }
     

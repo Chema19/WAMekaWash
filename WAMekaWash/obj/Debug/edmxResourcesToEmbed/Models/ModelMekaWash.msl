@@ -4,124 +4,124 @@
     <EntitySetMapping Name="Category">
       <EntityTypeMapping TypeName="BDMekawashModel.Category">
         <MappingFragment StoreEntitySet="Category">
-          <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
           <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Customer">
       <EntityTypeMapping TypeName="BDMekawashModel.Customer">
         <MappingFragment StoreEntitySet="Customer">
-          <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
-          <ScalarProperty Name="Names" ColumnName="Names" />
-          <ScalarProperty Name="LastNames" ColumnName="LastNames" />
-          <ScalarProperty Name="DocumentIdentity" ColumnName="DocumentIdentity" />
-          <ScalarProperty Name="Password" ColumnName="Password" />
-          <ScalarProperty Name="BirthdayDate" ColumnName="BirthdayDate" />
-          <ScalarProperty Name="Username" ColumnName="Username" />
-          <ScalarProperty Name="Status" ColumnName="Status" />
-          <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
-          <ScalarProperty Name="ProvinceId" ColumnName="ProvinceId" />
           <ScalarProperty Name="DistrictId" ColumnName="DistrictId" />
+          <ScalarProperty Name="ProvinceId" ColumnName="ProvinceId" />
+          <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="BirthdayDate" ColumnName="BirthdayDate" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="DocumentIdentity" ColumnName="DocumentIdentity" />
+          <ScalarProperty Name="LastNames" ColumnName="LastNames" />
+          <ScalarProperty Name="Names" ColumnName="Names" />
+          <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Department">
       <EntityTypeMapping TypeName="BDMekawashModel.Department">
         <MappingFragment StoreEntitySet="Department">
-          <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
           <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="District">
       <EntityTypeMapping TypeName="BDMekawashModel.District">
         <MappingFragment StoreEntitySet="District">
-          <ScalarProperty Name="DistrictId" ColumnName="DistrictId" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="ProvinceId" ColumnName="ProvinceId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="DistrictId" ColumnName="DistrictId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Local">
       <EntityTypeMapping TypeName="BDMekawashModel.Local">
         <MappingFragment StoreEntitySet="Local">
-          <ScalarProperty Name="LocalId" ColumnName="LocalId" />
-          <ScalarProperty Name="Address" ColumnName="Address" />
-          <ScalarProperty Name="DistrictId" ColumnName="DistrictId" />
-          <ScalarProperty Name="ProvinceId" ColumnName="ProvinceId" />
-          <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
-          <ScalarProperty Name="ProviderId" ColumnName="ProviderId" />
-          <ScalarProperty Name="Punctuation" ColumnName="Punctuation" />
           <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Punctuation" ColumnName="Punctuation" />
+          <ScalarProperty Name="ProviderId" ColumnName="ProviderId" />
+          <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
+          <ScalarProperty Name="ProvinceId" ColumnName="ProvinceId" />
+          <ScalarProperty Name="DistrictId" ColumnName="DistrictId" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="LocalId" ColumnName="LocalId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Provider">
       <EntityTypeMapping TypeName="BDMekawashModel.Provider">
         <MappingFragment StoreEntitySet="Provider">
-          <ScalarProperty Name="ProviderId" ColumnName="ProviderId" />
-          <ScalarProperty Name="BusinessName" ColumnName="BusinessName" />
-          <ScalarProperty Name="RUC" ColumnName="RUC" />
-          <ScalarProperty Name="Telephone" ColumnName="Telephone" />
-          <ScalarProperty Name="Email" ColumnName="Email" />
-          <ScalarProperty Name="Status" ColumnName="Status" />
-          <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
           <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Telephone" ColumnName="Telephone" />
+          <ScalarProperty Name="RUC" ColumnName="RUC" />
+          <ScalarProperty Name="BusinessName" ColumnName="BusinessName" />
+          <ScalarProperty Name="ProviderId" ColumnName="ProviderId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="ProvinceId">
-      <EntityTypeMapping TypeName="BDMekawashModel.ProvinceId">
-        <MappingFragment StoreEntitySet="ProvinceId">
-          <ScalarProperty Name="ProvinceId1" ColumnName="ProvinceId" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
+    <EntitySetMapping Name="Province">
+      <EntityTypeMapping TypeName="BDMekawashModel.Province">
+        <MappingFragment StoreEntitySet="Province">
           <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ProvinceId" ColumnName="ProvinceId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Qualification">
       <EntityTypeMapping TypeName="BDMekawashModel.Qualification">
         <MappingFragment StoreEntitySet="Qualification">
-          <ScalarProperty Name="QualificationId" ColumnName="QualificationId" />
-          <ScalarProperty Name="Punctuation" ColumnName="Punctuation" />
-          <ScalarProperty Name="Detail" ColumnName="Detail" />
-          <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
           <ScalarProperty Name="LocalId" ColumnName="LocalId" />
+          <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+          <ScalarProperty Name="Detail" ColumnName="Detail" />
+          <ScalarProperty Name="Punctuation" ColumnName="Punctuation" />
+          <ScalarProperty Name="QualificationId" ColumnName="QualificationId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Reservation">
       <EntityTypeMapping TypeName="BDMekawashModel.Reservation">
         <MappingFragment StoreEntitySet="Reservation">
-          <ScalarProperty Name="ReservationId" ColumnName="ReservationId" />
-          <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
-          <ScalarProperty Name="LocalId" ColumnName="LocalId" />
-          <ScalarProperty Name="ServiceId" ColumnName="ServiceId" />
-          <ScalarProperty Name="Schedule" ColumnName="Schedule" />
-          <ScalarProperty Name="Detail" ColumnName="Detail" />
           <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Detail" ColumnName="Detail" />
+          <ScalarProperty Name="Schedule" ColumnName="Schedule" />
+          <ScalarProperty Name="ServiceId" ColumnName="ServiceId" />
+          <ScalarProperty Name="LocalId" ColumnName="LocalId" />
+          <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+          <ScalarProperty Name="ReservationId" ColumnName="ReservationId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Schedule">
       <EntityTypeMapping TypeName="BDMekawashModel.Schedule">
         <MappingFragment StoreEntitySet="Schedule">
-          <ScalarProperty Name="ScheduleId" ColumnName="ScheduleId" />
           <ScalarProperty Name="Detail" ColumnName="Detail" />
+          <ScalarProperty Name="ScheduleId" ColumnName="ScheduleId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Service">
       <EntityTypeMapping TypeName="BDMekawashModel.Service">
         <MappingFragment StoreEntitySet="Service">
-          <ScalarProperty Name="ServiceId" ColumnName="ServiceId" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="Detail" ColumnName="Detail" />
-          <ScalarProperty Name="LocalId" ColumnName="LocalId" />
-          <ScalarProperty Name="UrlPhoto" ColumnName="UrlPhoto" />
-          <ScalarProperty Name="Cost" ColumnName="Cost" />
           <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Cost" ColumnName="Cost" />
+          <ScalarProperty Name="UrlPhoto" ColumnName="UrlPhoto" />
+          <ScalarProperty Name="LocalId" ColumnName="LocalId" />
+          <ScalarProperty Name="Detail" ColumnName="Detail" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ServiceId" ColumnName="ServiceId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

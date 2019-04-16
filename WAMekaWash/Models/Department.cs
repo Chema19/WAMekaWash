@@ -19,7 +19,7 @@ namespace WAMekaWash.Models
         {
             this.Customer = new HashSet<Customer>();
             this.Local = new HashSet<Local>();
-            this.ProvinceId = new HashSet<ProvinceId>();
+            this.Province = new HashSet<Province>();
         }
     
         public int DepartmentId { get; set; }
@@ -30,6 +30,6 @@ namespace WAMekaWash.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Local> Local { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProvinceId> ProvinceId { get; set; }
+        public virtual ICollection<Province> Province { get; set; }
     }
 }

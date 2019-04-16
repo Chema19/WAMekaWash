@@ -5,33 +5,33 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="af5a6f415b2f477595206e7b7596be65" Name="Diagram1">
-        <EntityTypeShape EntityType="BDMekawashModel.Category" Width="1.5" PointX="6" PointY="7.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="BDMekawashModel.Customer" Width="1.5" PointX="7.5" PointY="11.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="BDMekawashModel.Department" Width="1.5" PointX="0.75" PointY="7.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="BDMekawashModel.District" Width="1.5" PointX="5.25" PointY="16.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="BDMekawashModel.Local" Width="1.5" PointX="10.5" PointY="12.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="BDMekawashModel.Provider" Width="1.5" PointX="8.25" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="BDMekawashModel.ProvinceId" Width="1.5" PointX="3" PointY="16.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="BDMekawashModel.Qualification" Width="1.5" PointX="12.75" PointY="9.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="BDMekawashModel.Reservation" Width="1.5" PointX="15" PointY="12.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="BDMekawashModel.Schedule" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="BDMekawashModel.Service" Width="1.5" PointX="12.75" PointY="12.875" IsExpanded="true" />
-        <AssociationConnector Association="BDMekawashModel.FK_Provider_Category" ManuallyRouted="false" />
-        <AssociationConnector Association="BDMekawashModel.FK_Customer_Department" ManuallyRouted="false" />
-        <AssociationConnector Association="BDMekawashModel.FK_Customer_District" ManuallyRouted="false" />
-        <AssociationConnector Association="BDMekawashModel.FK_Customer_ProvinceId" ManuallyRouted="false" />
-        <AssociationConnector Association="BDMekawashModel.FK_Qualification_Customer" ManuallyRouted="false" />
-        <AssociationConnector Association="BDMekawashModel.FK_Reservation_Customer" ManuallyRouted="false" />
-        <AssociationConnector Association="BDMekawashModel.FK_Local_Department" ManuallyRouted="false" />
-        <AssociationConnector Association="BDMekawashModel.FK_ProvinceId_Department" ManuallyRouted="false" />
-        <AssociationConnector Association="BDMekawashModel.FK_District_ProvinceId" ManuallyRouted="false" />
-        <AssociationConnector Association="BDMekawashModel.FK_Local_District" ManuallyRouted="false" />
-        <AssociationConnector Association="BDMekawashModel.FK_Local_Provider" ManuallyRouted="false" />
-        <AssociationConnector Association="BDMekawashModel.FK_Local_ProvinceId" ManuallyRouted="false" />
-        <AssociationConnector Association="BDMekawashModel.FK_Qualification_Local" ManuallyRouted="false" />
-        <AssociationConnector Association="BDMekawashModel.FK_Reservation_Local" ManuallyRouted="false" />
-        <AssociationConnector Association="BDMekawashModel.FK_Servicio_Local" ManuallyRouted="false" />
-        <AssociationConnector Association="BDMekawashModel.FK_Reservation_Servicio" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="BDMekawashModel.Category" Width="1.5" PointX="3" PointY="12.5" />
+        <EntityTypeShape EntityType="BDMekawashModel.Customer" Width="1.5" PointX="10.5" PointY="12.25" />
+        <EntityTypeShape EntityType="BDMekawashModel.Department" Width="1.5" PointX="0.75" PointY="7.5" />
+        <EntityTypeShape EntityType="BDMekawashModel.District" Width="1.5" PointX="5.25" PointY="16.875" />
+        <EntityTypeShape EntityType="BDMekawashModel.Local" Width="1.5" PointX="7.5" PointY="11.375" />
+        <EntityTypeShape EntityType="BDMekawashModel.Provider" Width="1.5" PointX="5.25" PointY="11.75" />
+        <EntityTypeShape EntityType="BDMekawashModel.Province" Width="1.5" PointX="3" PointY="16.75" />
+        <EntityTypeShape EntityType="BDMekawashModel.Qualification" Width="1.5" PointX="12.75" PointY="14.625" />
+        <EntityTypeShape EntityType="BDMekawashModel.Reservation" Width="1.5" PointX="12.75" PointY="10.625" />
+        <EntityTypeShape EntityType="BDMekawashModel.Schedule" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="BDMekawashModel.Service" Width="1.5" PointX="9.75" PointY="7.875" />
+        <AssociationConnector Association="BDMekawashModel.FK_Provider_Category" />
+        <AssociationConnector Association="BDMekawashModel.FK_Customer_Department" />
+        <AssociationConnector Association="BDMekawashModel.FK_Customer_District" />
+        <AssociationConnector Association="BDMekawashModel.FK_Customer_ProvinceId" />
+        <AssociationConnector Association="BDMekawashModel.FK_Qualification_Customer" />
+        <AssociationConnector Association="BDMekawashModel.FK_Reservation_Customer" />
+        <AssociationConnector Association="BDMekawashModel.FK_Local_Department" />
+        <AssociationConnector Association="BDMekawashModel.FK_ProvinceId_Department" />
+        <AssociationConnector Association="BDMekawashModel.FK_District_ProvinceId" />
+        <AssociationConnector Association="BDMekawashModel.FK_Local_District" />
+        <AssociationConnector Association="BDMekawashModel.FK_Local_Provider" />
+        <AssociationConnector Association="BDMekawashModel.FK_Local_ProvinceId" />
+        <AssociationConnector Association="BDMekawashModel.FK_Qualification_Local" />
+        <AssociationConnector Association="BDMekawashModel.FK_Reservation_Local" />
+        <AssociationConnector Association="BDMekawashModel.FK_Servicio_Local" />
+        <AssociationConnector Association="BDMekawashModel.FK_Reservation_Servicio" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

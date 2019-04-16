@@ -34,7 +34,7 @@ namespace WAMekaWash.Models
         public virtual Department Department { get; set; }
         public virtual District District { get; set; }
         public virtual Provider Provider { get; set; }
-        public virtual ProvinceId ProvinceId1 { get; set; }
+        public virtual Province Province { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Qualification> Qualification { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

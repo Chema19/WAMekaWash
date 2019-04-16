@@ -64,7 +64,7 @@
     <Property Name="CategoryId" Type="int" />
     <Property Name="Password" Type="varchar(max)" />
   </EntityType>
-  <EntityType Name="ProvinceId">
+  <EntityType Name="Province">
     <Key>
       <PropertyRef Name="ProvinceId" />
     </Key>
@@ -138,10 +138,10 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Customer_ProvinceId">
-    <End Role="ProvinceId" Type="Self.ProvinceId" Multiplicity="0..1" />
+    <End Role="Province" Type="Self.Province" Multiplicity="0..1" />
     <End Role="Customer" Type="Self.Customer" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="ProvinceId">
+      <Principal Role="Province">
         <PropertyRef Name="ProvinceId" />
       </Principal>
       <Dependent Role="Customer">
@@ -150,10 +150,10 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_District_ProvinceId">
-    <End Role="ProvinceId" Type="Self.ProvinceId" Multiplicity="1" />
+    <End Role="Province" Type="Self.Province" Multiplicity="1" />
     <End Role="District" Type="Self.District" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="ProvinceId">
+      <Principal Role="Province">
         <PropertyRef Name="ProvinceId" />
       </Principal>
       <Dependent Role="District">
@@ -198,10 +198,10 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Local_ProvinceId">
-    <End Role="ProvinceId" Type="Self.ProvinceId" Multiplicity="1" />
+    <End Role="Province" Type="Self.Province" Multiplicity="1" />
     <End Role="Local" Type="Self.Local" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="ProvinceId">
+      <Principal Role="Province">
         <PropertyRef Name="ProvinceId" />
       </Principal>
       <Dependent Role="Local">
@@ -223,12 +223,12 @@
   </Association>
   <Association Name="FK_ProvinceId_Department">
     <End Role="Department" Type="Self.Department" Multiplicity="1" />
-    <End Role="ProvinceId" Type="Self.ProvinceId" Multiplicity="*" />
+    <End Role="Province" Type="Self.Province" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Department">
         <PropertyRef Name="DepartmentId" />
       </Principal>
-      <Dependent Role="ProvinceId">
+      <Dependent Role="Province">
         <PropertyRef Name="DepartmentId" />
       </Dependent>
     </ReferentialConstraint>
@@ -312,7 +312,7 @@
     <EntitySet Name="District" EntityType="Self.District" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Local" EntityType="Self.Local" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Provider" EntityType="Self.Provider" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="ProvinceId" EntityType="Self.ProvinceId" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Province" EntityType="Self.Province" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Qualification" EntityType="Self.Qualification" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Reservation" EntityType="Self.Reservation" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Schedule" EntityType="Self.Schedule" Schema="dbo" store:Type="Tables" />
@@ -326,11 +326,11 @@
       <End Role="Customer" EntitySet="Customer" />
     </AssociationSet>
     <AssociationSet Name="FK_Customer_ProvinceId" Association="Self.FK_Customer_ProvinceId">
-      <End Role="ProvinceId" EntitySet="ProvinceId" />
+      <End Role="Province" EntitySet="Province" />
       <End Role="Customer" EntitySet="Customer" />
     </AssociationSet>
     <AssociationSet Name="FK_District_ProvinceId" Association="Self.FK_District_ProvinceId">
-      <End Role="ProvinceId" EntitySet="ProvinceId" />
+      <End Role="Province" EntitySet="Province" />
       <End Role="District" EntitySet="District" />
     </AssociationSet>
     <AssociationSet Name="FK_Local_Department" Association="Self.FK_Local_Department">
@@ -346,7 +346,7 @@
       <End Role="Local" EntitySet="Local" />
     </AssociationSet>
     <AssociationSet Name="FK_Local_ProvinceId" Association="Self.FK_Local_ProvinceId">
-      <End Role="ProvinceId" EntitySet="ProvinceId" />
+      <End Role="Province" EntitySet="Province" />
       <End Role="Local" EntitySet="Local" />
     </AssociationSet>
     <AssociationSet Name="FK_Provider_Category" Association="Self.FK_Provider_Category">
@@ -355,7 +355,7 @@
     </AssociationSet>
     <AssociationSet Name="FK_ProvinceId_Department" Association="Self.FK_ProvinceId_Department">
       <End Role="Department" EntitySet="Department" />
-      <End Role="ProvinceId" EntitySet="ProvinceId" />
+      <End Role="Province" EntitySet="Province" />
     </AssociationSet>
     <AssociationSet Name="FK_Qualification_Customer" Association="Self.FK_Qualification_Customer">
       <End Role="Customer" EntitySet="Customer" />
