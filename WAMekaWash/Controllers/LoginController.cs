@@ -6,43 +6,257 @@ using System.Net.Http;
 using System.Threading;
 using System.Web.Http;
 using WAMekaWash.Models;
+using WAMekaWash.Entities;
+using WAMekaWash.Logics;
+using System.Transactions;
+using WAMekaWash.Helpers;
 
 namespace WAMekaWash.Controllers
 {
     [AllowAnonymous]
-    [RoutePrefix("api/login")]
-    public class LoginController : ApiController
+    [RoutePrefix("wamekawash/v1")]
+    public class LoginController : BaseApiController
     {
-        [HttpGet]
-        [Route("echoping")]
-        public IHttpActionResult EchoPing()
+        [HttpPost]
+        [Route("login")]
+        public IHttpActionResult Login(LoginRequest model)
         {
-            return Ok(true);
+            try
+            {
+
+                if (model == null)
+                {
+                    response.Data = null;
+                    response.Error = true;
+                    response.Message = "Error, empty model";
+                    //throw new HttpResponseException(HttpStatusCode.BadRequest);
+                    return Content(HttpStatusCode.BadRequest, response);
+                }
+                if (String.IsNullOrEmpty(model.Username) || String.IsNullOrEmpty(model.Password)) {
+                    response.Data = null;
+                    response.Error = true;
+                    response.Message = "Error, empty data";
+                    return Content(HttpStatusCode.BadRequest, response);
+                }
+
+                Customer customer = context.Customer.FirstOrDefault(x => x.Username == model.Username);
+
+                String password =  CipherLogic.Cipher(CipherAction.Encrypt, CipherType.UserPassword, model.Password);
+
+                bool isCredentialValid = (password == customer.Password);
+                
+                if (isCredentialValid)
+                {
+                    var token = TokenGenerator.GenerateTokenJwt(model.Username);
+                    response.Data = token;
+                    response.Error = false;
+                    response.Message = "Success";
+                    return Ok(response);
+                }
+                else
+                {
+                    return Unauthorized();
+                }
+            }
+            catch (Exception ex) {
+                return BadRequest();
+            }
         }
 
-        [HttpGet]
-        [Route("echouser")]
-        public IHttpActionResult EchoUser()
+
+        [HttpPost]
+        [Route("customers")]
+        public IHttpActionResult RegisterCustomer(CustomerEntities model)
         {
-            var identity = Thread.CurrentPrincipal.Identity;
-            return Ok($" IPrincipal-user: {identity.Name} - IsAuthenticated: {identity.IsAuthenticated}");
+            var Httpresponse = new HttpResponseMessage();
+            try
+            {
+                using (var ts = new TransactionScope())
+                {
+                    if (model == null)
+                    {
+                        response.Data = null;
+                        response.Error = true;
+                        response.Message = "Error, Empty model";
+                        return Content(HttpStatusCode.BadRequest, response);
+                    }
+                    else
+                    {
+                        Customer customer = new Customer();
+                        
+                        if (context.Customer.FirstOrDefault(x => x.Username == model.Username) != null)
+                        {
+                            response.Data = null;
+                            response.Error = true;
+                            response.Message = "Error, Existing customer";
+                            return Content(HttpStatusCode.BadRequest,response);
+                        }
+                        else
+                        {
+
+                            context.Customer.Add(customer);
+
+                            customer.Names = model.Names;
+                            customer.LastNames = model.LastNames;
+                            customer.DocumentIdentity = model.DocumentIdentity;
+                            customer.Password = CipherLogic.Cipher(CipherAction.Encrypt, CipherType.UserPassword, model.Password);
+                            customer.BirthdayDate = model.Birthday;
+                            customer.Username = model.Username;
+                            customer.Status = ConstantHelpers.Status.ACTIVE;
+                            customer.DepartmentId = model.DepartementId;
+                            customer.ProvinceId = model.ProvinceId;
+                            customer.DistrictId = model.DistrictId;
+                            customer.Phone = model.Phone;
+
+                            context.SaveChanges();
+
+                            response.Data = null;
+                            response.Error = false;
+                            response.Message = "Success, saved customer";
+                        }
+
+                        ts.Complete();
+                    }
+                }
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return Unauthorized();
+            }
         }
 
         [HttpPost]
-        [Route("authenticate")]
-        public IHttpActionResult Authenticate(LoginRequest login)
-        {
-            if (login == null)
-                throw new HttpResponseException(HttpStatusCode.BadRequest);
+        [Route("providers")]
+        public IHttpActionResult RegisterProvider(ProviderEntities model) {
+            try {
+                using (var ts = new TransactionScope()) {
+                    if (model == null)
+                    {
+                        response.Data = null;
+                        response.Error = true;
+                        response.Message = "Error, Empty model";
+                        return Content(HttpStatusCode.BadRequest, response);
+                    }
+                    else {
+                        var provider = new Provider();
+                        ;
 
-            //TODO: Validate credentials Correctly, this code is only for demo !!
-            bool isCredentialValid = (login.Password == "123456");
-            if (isCredentialValid)
-            { 
-                var token = TokenGenerator.GenerateTokenJwt(login.Username);
-                return Ok(token);
+                        if (context.Provider.FirstOrDefault(x => x.RUC == model.Ruc) != null)
+                        {
+                            response.Data = null;
+                            response.Error = true;
+                            response.Message = "Error, Existing provider";
+                            return Content(HttpStatusCode.BadRequest, response);
+                        }
+                        else {
+                            context.Provider.Add(provider);
+
+                            provider.BusinessName = model.BusinessName;
+                            provider.RUC = model.Ruc;
+                            provider.Telephone = model.Telephone;
+                            provider.Email = model.Email;
+                            provider.Status = ConstantHelpers.Status.ACTIVE;
+                            provider.CategoryId = model.CategoryId;
+                            provider.Password = CipherLogic.Cipher(CipherAction.Encrypt, CipherType.UserPassword,model.Password);
+
+                            context.SaveChanges();
+
+                            response.Data = null;
+                            response.Error = false;
+                            response.Message = "Success, saved provider";
+
+                        }
+                    }
+                    ts.Complete();
+                }
+                return Ok(response);
+            } catch (Exception ex){
+                return Unauthorized();
             }
-            else
+        }
+
+        [HttpGet]
+        [Route("categories")]
+        public IHttpActionResult ListCategories()
+        {
+            try
+            {
+                using (var ts = new TransactionScope())
+                {
+                    response.Data = context.Category.Select(x => new { CategoryId = x.CategoryId, Name = x.Name }).ToList(); ;
+                    response.Error = false;
+                    response.Message = "Success";
+
+                    ts.Complete();
+                }
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return Unauthorized();
+            }
+        }
+
+        [HttpGet]
+        [Route("departments")]
+        public IHttpActionResult ListDepartments()
+        {
+            try
+            {
+                using (var ts = new TransactionScope())
+                {
+                    response.Data = context.Department.Select(x => new { DepartmentId = x.DepartmentId, Name = x.Name }).ToList(); ;
+                    response.Error = false;
+                    response.Message = "Success";
+
+                    ts.Complete();
+                }
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return Unauthorized();
+            }
+        }
+        [HttpGet]
+        [Route("provinces/{departmentid}")]
+        public IHttpActionResult ListProvinces(Int32? departmentid)
+        {
+            try
+            {
+                using (var ts = new TransactionScope())
+                {
+                    response.Data = context.Province.Where(x=>x.DepartmentId == departmentid).Select(x => new { ProvinceId = x.ProvinceId, Name = x.Name }).ToList(); ;
+                    response.Error = false;
+                    response.Message = "Success";
+
+                    ts.Complete();
+                }
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return Unauthorized();
+            }
+        }
+        [HttpGet]
+        [Route("districts/{provinceid}")]
+        public IHttpActionResult ListDistricts(Int32? provinceid)
+        {
+            try
+            {
+                using (var ts = new TransactionScope())
+                {
+                    response.Data = context.District.Where(x=>x.ProvinceId == provinceid).Select(x => new { DistrictId = x.DistrictId, Name = x.Name }).ToList(); ;
+                    response.Error = false;
+                    response.Message = "Success";
+
+                    ts.Complete();
+                }
+                return Ok(response);
+            }
+            catch (Exception ex)
             {
                 return Unauthorized();
             }

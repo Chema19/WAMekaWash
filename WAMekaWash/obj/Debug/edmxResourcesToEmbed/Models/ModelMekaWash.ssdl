@@ -22,6 +22,7 @@
     <Property Name="DepartmentId" Type="int" />
     <Property Name="ProvinceId" Type="int" />
     <Property Name="DistrictId" Type="int" />
+    <Property Name="Phone" Type="varchar(max)" />
   </EntityType>
   <EntityType Name="Department">
     <Key>

@@ -100,6 +100,7 @@
     <Property Name="DepartmentId" Type="Int32" />
     <Property Name="ProvinceId" Type="Int32" />
     <Property Name="DistrictId" Type="Int32" />
+    <Property Name="Phone" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="Department" Relationship="BDMekawashModel.FK_Customer_Department" FromRole="Customer" ToRole="Department" />
     <NavigationProperty Name="District" Relationship="BDMekawashModel.FK_Customer_District" FromRole="Customer" ToRole="District" />
     <NavigationProperty Name="Province" Relationship="BDMekawashModel.FK_Customer_ProvinceId" FromRole="Customer" ToRole="Province" />

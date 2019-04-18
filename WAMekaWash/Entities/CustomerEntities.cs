@@ -18,5 +18,6 @@ namespace WAMekaWash.Entities
         public Int32? DepartementId { set; get; }
         public Int32? ProvinceId { set; get; }
         public Int32? DistrictId { set; get; }
+        public String Phone { set; get; }
     }
 }

@@ -189,6 +189,7 @@
     <Compile Include="Controllers\TokenGenerator.cs" />
     <Compile Include="Controllers\TokenValidationHandler.cs" />
     <Compile Include="Entities\CustomerEntities.cs" />
+    <Compile Include="Entities\ProviderEntities.cs" />
     <Compile Include="Entities\ResultRequest.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -210,7 +211,7 @@
     <Compile Include="Models\Local.cs">
       <DependentUpon>ModelMekaWash.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\LoginRequest.cs" />
+    <Compile Include="Entities\LoginRequest.cs" />
     <Compile Include="Models\ModelMekaWash.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

@@ -32,6 +32,7 @@ namespace WAMekaWash.Models
         public Nullable<int> DepartmentId { get; set; }
         public Nullable<int> ProvinceId { get; set; }
         public Nullable<int> DistrictId { get; set; }
+        public string Phone { get; set; }
     
         public virtual Department Department { get; set; }
         public virtual District District { get; set; }

@@ -12,6 +12,7 @@
     <EntitySetMapping Name="Customer">
       <EntityTypeMapping TypeName="BDMekawashModel.Customer">
         <MappingFragment StoreEntitySet="Customer">
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
           <ScalarProperty Name="DistrictId" ColumnName="DistrictId" />
           <ScalarProperty Name="ProvinceId" ColumnName="ProvinceId" />
           <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
