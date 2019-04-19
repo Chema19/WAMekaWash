@@ -26,7 +26,7 @@ namespace WAMekaWash.Controllers
             {
                 using (var ts = new TransactionScope())
                 {
-                    response.Data = context.Customer.Select(x => new
+                    response.Data = context.Customer.Where(x=>x.Status == ConstantHelpers.Status.ACTIVE).Select(x => new
                     {
                         CustomerId = x.CustomerId,
                         Names = x.Names,
@@ -63,7 +63,7 @@ namespace WAMekaWash.Controllers
                 {
                     if (customerid.HasValue)
                     {
-                        response.Data = context.Customer.Where(x => x.CustomerId == customerid).Select(x => new
+                        response.Data = context.Customer.Where(x => x.CustomerId == customerid && x.Status == ConstantHelpers.Status.ACTIVE).Select(x => new
                         {
                             CustomerId = x.CustomerId,
                             Names = x.Names,

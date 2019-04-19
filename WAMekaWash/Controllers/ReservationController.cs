@@ -26,7 +26,7 @@ namespace WAMekaWash.Controllers
                 {
                     if (localid.HasValue)
                     {
-                        response.Data = context.Reservation.Where(x => x.LocalId == localid).Select(x => new
+                        response.Data = context.Reservation.Where(x => x.LocalId == localid && x.Status == ConstantHelpers.Status.ACTIVE).Select(x => new
                         {
                             ReservationId = x.ReservationId,
                             CustomerId = x.CustomerId,
@@ -66,7 +66,7 @@ namespace WAMekaWash.Controllers
                 {
                     if (reservationid.HasValue && localid.HasValue)
                     {
-                        response.Data = context.Reservation.Where(x => x.ReservationId == reservationid && x.LocalId == localid).Select(x => new
+                        response.Data = context.Reservation.Where(x => x.ReservationId == reservationid && x.LocalId == localid && x.Status == ConstantHelpers.Status.ACTIVE).Select(x => new
                         {
                             ReservationId = x.ReservationId,
                             CustomerId = x.CustomerId,
@@ -109,7 +109,7 @@ namespace WAMekaWash.Controllers
                 {
                     if (customerid.HasValue)
                     {
-                        response.Data = context.Reservation.Where(x => x.CustomerId == customerid).Select(x => new
+                        response.Data = context.Reservation.Where(x => x.CustomerId == customerid && x.Status == ConstantHelpers.Status.ACTIVE).Select(x => new
                         {
                             ReservationId = x.ReservationId,
                             CustomerId = x.CustomerId,
@@ -149,7 +149,7 @@ namespace WAMekaWash.Controllers
                 {
                     if (reservationid.HasValue && customerid.HasValue)
                     {
-                        response.Data = context.Reservation.Where(x => x.ReservationId == reservationid && x.CustomerId == customerid).Select(x => new
+                        response.Data = context.Reservation.Where(x => x.ReservationId == reservationid && x.CustomerId == customerid && x.Status == ConstantHelpers.Status.ACTIVE).Select(x => new
                         {
                             ReservationId = x.ReservationId,
                             CustomerId = x.CustomerId,

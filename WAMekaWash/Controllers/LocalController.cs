@@ -25,7 +25,7 @@ namespace WAMekaWash.Controllers
                 {
                     if (providerid.HasValue)
                     {
-                        response.Data = context.Local.Where(x => x.ProviderId == providerid).Select(x => new
+                        response.Data = context.Local.Where(x => x.ProviderId == providerid && x.Status == ConstantHelpers.Status.ACTIVE).Select(x => new
                         {
                             LocalId = x.LocalId,
                             Address = x.Address,
@@ -66,7 +66,7 @@ namespace WAMekaWash.Controllers
                 {
                     if (providerid.HasValue && localid.HasValue)
                     {
-                        response.Data = context.Local.Where(x => x.ProviderId == providerid && x.LocalId == localid).Select(x => new
+                        response.Data = context.Local.Where(x => x.ProviderId == providerid && x.LocalId == localid && x.Status == ConstantHelpers.Status.ACTIVE).Select(x => new
                         {
                             LocalId = x.LocalId,
                             Address = x.Address,
