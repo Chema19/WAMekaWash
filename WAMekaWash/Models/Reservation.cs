@@ -21,5 +21,9 @@ namespace WAMekaWash.Models
         public Nullable<System.TimeSpan> Schedule { get; set; }
         public string Detail { get; set; }
         public string Status { get; set; }
+    
+        public virtual Customer Customer { get; set; }
+        public virtual Local Local { get; set; }
+        public virtual Service Service { get; set; }
     }
 }

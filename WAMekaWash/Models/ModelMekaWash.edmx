@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="BDMekawashModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="BDMekawashModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Brand">
           <Key>
             <PropertyRef Name="BrandId" />
@@ -128,6 +128,222 @@
           <Property Name="Cost" Type="decimal" Precision="18" Scale="4" />
           <Property Name="Status" Type="varchar" MaxLength="3" />
         </EntityType>
+        <Association Name="FK_Car_Brand">
+          <End Role="Brand" Type="Self.Brand" Multiplicity="0..1" />
+          <End Role="Car" Type="Self.Car" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Brand">
+              <PropertyRef Name="BrandId" />
+            </Principal>
+            <Dependent Role="Car">
+              <PropertyRef Name="BrandId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Car_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+          <End Role="Car" Type="Self.Car" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="Car">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Customer_Department">
+          <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
+          <End Role="Customer" Type="Self.Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="DepartmentId" />
+            </Principal>
+            <Dependent Role="Customer">
+              <PropertyRef Name="DepartmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Customer_District">
+          <End Role="District" Type="Self.District" Multiplicity="0..1" />
+          <End Role="Customer" Type="Self.Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="District">
+              <PropertyRef Name="DistrictId" />
+            </Principal>
+            <Dependent Role="Customer">
+              <PropertyRef Name="DistrictId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Customer_ProvinceId">
+          <End Role="Province" Type="Self.Province" Multiplicity="0..1" />
+          <End Role="Customer" Type="Self.Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Province">
+              <PropertyRef Name="ProvinceId" />
+            </Principal>
+            <Dependent Role="Customer">
+              <PropertyRef Name="ProvinceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_District_ProvinceId">
+          <End Role="Province" Type="Self.Province" Multiplicity="1" />
+          <End Role="District" Type="Self.District" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Province">
+              <PropertyRef Name="ProvinceId" />
+            </Principal>
+            <Dependent Role="District">
+              <PropertyRef Name="ProvinceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Local_Department">
+          <End Role="Department" Type="Self.Department" Multiplicity="1" />
+          <End Role="Local" Type="Self.Local" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="DepartmentId" />
+            </Principal>
+            <Dependent Role="Local">
+              <PropertyRef Name="DepartmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Local_District">
+          <End Role="District" Type="Self.District" Multiplicity="1" />
+          <End Role="Local" Type="Self.Local" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="District">
+              <PropertyRef Name="DistrictId" />
+            </Principal>
+            <Dependent Role="Local">
+              <PropertyRef Name="DistrictId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Local_Provider">
+          <End Role="Provider" Type="Self.Provider" Multiplicity="0..1" />
+          <End Role="Local" Type="Self.Local" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Provider">
+              <PropertyRef Name="ProviderId" />
+            </Principal>
+            <Dependent Role="Local">
+              <PropertyRef Name="ProviderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Local_ProvinceId">
+          <End Role="Province" Type="Self.Province" Multiplicity="1" />
+          <End Role="Local" Type="Self.Local" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Province">
+              <PropertyRef Name="ProvinceId" />
+            </Principal>
+            <Dependent Role="Local">
+              <PropertyRef Name="ProvinceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Provider_Category">
+          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="Provider" Type="Self.Provider" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="CategoryId" />
+            </Principal>
+            <Dependent Role="Provider">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProvinceId_Department">
+          <End Role="Department" Type="Self.Department" Multiplicity="1" />
+          <End Role="Province" Type="Self.Province" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="DepartmentId" />
+            </Principal>
+            <Dependent Role="Province">
+              <PropertyRef Name="DepartmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Qualification_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="Qualification" Type="Self.Qualification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="Qualification">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Qualification_Local">
+          <End Role="Local" Type="Self.Local" Multiplicity="0..1" />
+          <End Role="Qualification" Type="Self.Qualification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Local">
+              <PropertyRef Name="LocalId" />
+            </Principal>
+            <Dependent Role="Qualification">
+              <PropertyRef Name="LocalId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reservation_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="Reservation" Type="Self.Reservation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="Reservation">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reservation_Local">
+          <End Role="Local" Type="Self.Local" Multiplicity="0..1" />
+          <End Role="Reservation" Type="Self.Reservation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Local">
+              <PropertyRef Name="LocalId" />
+            </Principal>
+            <Dependent Role="Reservation">
+              <PropertyRef Name="LocalId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reservation_Servicio">
+          <End Role="Service" Type="Self.Service" Multiplicity="0..1" />
+          <End Role="Reservation" Type="Self.Reservation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Service">
+              <PropertyRef Name="ServiceId" />
+            </Principal>
+            <Dependent Role="Reservation">
+              <PropertyRef Name="ServiceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Servicio_Local">
+          <End Role="Local" Type="Self.Local" Multiplicity="0..1" />
+          <End Role="Service" Type="Self.Service" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Local">
+              <PropertyRef Name="LocalId" />
+            </Principal>
+            <Dependent Role="Service">
+              <PropertyRef Name="LocalId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="BDMekawashModelStoreContainer">
           <EntitySet Name="Brand" EntityType="Self.Brand" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Car" EntityType="Self.Car" Schema="dbo" store:Type="Tables" />
@@ -141,18 +357,176 @@
           <EntitySet Name="Qualification" EntityType="Self.Qualification" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Reservation" EntityType="Self.Reservation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Service" EntityType="Self.Service" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Car_Brand" Association="Self.FK_Car_Brand">
+            <End Role="Brand" EntitySet="Brand" />
+            <End Role="Car" EntitySet="Car" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Car_Customer" Association="Self.FK_Car_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Car" EntitySet="Car" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Customer_Department" Association="Self.FK_Customer_Department">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="Customer" EntitySet="Customer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Customer_District" Association="Self.FK_Customer_District">
+            <End Role="District" EntitySet="District" />
+            <End Role="Customer" EntitySet="Customer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Customer_ProvinceId" Association="Self.FK_Customer_ProvinceId">
+            <End Role="Province" EntitySet="Province" />
+            <End Role="Customer" EntitySet="Customer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_District_ProvinceId" Association="Self.FK_District_ProvinceId">
+            <End Role="Province" EntitySet="Province" />
+            <End Role="District" EntitySet="District" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Local_Department" Association="Self.FK_Local_Department">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="Local" EntitySet="Local" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Local_District" Association="Self.FK_Local_District">
+            <End Role="District" EntitySet="District" />
+            <End Role="Local" EntitySet="Local" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Local_Provider" Association="Self.FK_Local_Provider">
+            <End Role="Provider" EntitySet="Provider" />
+            <End Role="Local" EntitySet="Local" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Local_ProvinceId" Association="Self.FK_Local_ProvinceId">
+            <End Role="Province" EntitySet="Province" />
+            <End Role="Local" EntitySet="Local" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Provider_Category" Association="Self.FK_Provider_Category">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Provider" EntitySet="Provider" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProvinceId_Department" Association="Self.FK_ProvinceId_Department">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="Province" EntitySet="Province" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Qualification_Customer" Association="Self.FK_Qualification_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Qualification" EntitySet="Qualification" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Qualification_Local" Association="Self.FK_Qualification_Local">
+            <End Role="Local" EntitySet="Local" />
+            <End Role="Qualification" EntitySet="Qualification" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reservation_Customer" Association="Self.FK_Reservation_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Reservation" EntitySet="Reservation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reservation_Local" Association="Self.FK_Reservation_Local">
+            <End Role="Local" EntitySet="Local" />
+            <End Role="Reservation" EntitySet="Reservation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reservation_Servicio" Association="Self.FK_Reservation_Servicio">
+            <End Role="Service" EntitySet="Service" />
+            <End Role="Reservation" EntitySet="Reservation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Servicio_Local" Association="Self.FK_Servicio_Local">
+            <End Role="Local" EntitySet="Local" />
+            <End Role="Service" EntitySet="Service" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="BDMekawashModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="BDMekawashEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Brand" EntityType="BDMekawashModel.Brand" />
+          <EntitySet Name="Car" EntityType="BDMekawashModel.Car" />
+          <EntitySet Name="Category" EntityType="BDMekawashModel.Category" />
+          <EntitySet Name="Customer" EntityType="BDMekawashModel.Customer" />
+          <EntitySet Name="Department" EntityType="BDMekawashModel.Department" />
+          <EntitySet Name="District" EntityType="BDMekawashModel.District" />
+          <EntitySet Name="Local" EntityType="BDMekawashModel.Local" />
+          <EntitySet Name="Provider" EntityType="BDMekawashModel.Provider" />
+          <EntitySet Name="Province" EntityType="BDMekawashModel.Province" />
+          <EntitySet Name="Qualification" EntityType="BDMekawashModel.Qualification" />
+          <EntitySet Name="Reservation" EntityType="BDMekawashModel.Reservation" />
+          <EntitySet Name="Service" EntityType="BDMekawashModel.Service" />
+          <AssociationSet Name="FK_Car_Brand" Association="BDMekawashModel.FK_Car_Brand">
+            <End Role="Brand" EntitySet="Brand" />
+            <End Role="Car" EntitySet="Car" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Car_Customer" Association="BDMekawashModel.FK_Car_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Car" EntitySet="Car" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Provider_Category" Association="BDMekawashModel.FK_Provider_Category">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Provider" EntitySet="Provider" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Customer_Department" Association="BDMekawashModel.FK_Customer_Department">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="Customer" EntitySet="Customer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Customer_District" Association="BDMekawashModel.FK_Customer_District">
+            <End Role="District" EntitySet="District" />
+            <End Role="Customer" EntitySet="Customer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Customer_ProvinceId" Association="BDMekawashModel.FK_Customer_ProvinceId">
+            <End Role="Province" EntitySet="Province" />
+            <End Role="Customer" EntitySet="Customer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Qualification_Customer" Association="BDMekawashModel.FK_Qualification_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Qualification" EntitySet="Qualification" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reservation_Customer" Association="BDMekawashModel.FK_Reservation_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Reservation" EntitySet="Reservation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Local_Department" Association="BDMekawashModel.FK_Local_Department">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="Local" EntitySet="Local" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProvinceId_Department" Association="BDMekawashModel.FK_ProvinceId_Department">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="Province" EntitySet="Province" />
+          </AssociationSet>
+          <AssociationSet Name="FK_District_ProvinceId" Association="BDMekawashModel.FK_District_ProvinceId">
+            <End Role="Province" EntitySet="Province" />
+            <End Role="District" EntitySet="District" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Local_District" Association="BDMekawashModel.FK_Local_District">
+            <End Role="District" EntitySet="District" />
+            <End Role="Local" EntitySet="Local" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Local_Provider" Association="BDMekawashModel.FK_Local_Provider">
+            <End Role="Provider" EntitySet="Provider" />
+            <End Role="Local" EntitySet="Local" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Local_ProvinceId" Association="BDMekawashModel.FK_Local_ProvinceId">
+            <End Role="Province" EntitySet="Province" />
+            <End Role="Local" EntitySet="Local" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Qualification_Local" Association="BDMekawashModel.FK_Qualification_Local">
+            <End Role="Local" EntitySet="Local" />
+            <End Role="Qualification" EntitySet="Qualification" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reservation_Local" Association="BDMekawashModel.FK_Reservation_Local">
+            <End Role="Local" EntitySet="Local" />
+            <End Role="Reservation" EntitySet="Reservation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Servicio_Local" Association="BDMekawashModel.FK_Servicio_Local">
+            <End Role="Local" EntitySet="Local" />
+            <End Role="Service" EntitySet="Service" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reservation_Servicio" Association="BDMekawashModel.FK_Reservation_Servicio">
+            <End Role="Service" EntitySet="Service" />
+            <End Role="Reservation" EntitySet="Reservation" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="Brand">
           <Key>
             <PropertyRef Name="BrandId" />
           </Key>
           <Property Name="BrandId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Car" Relationship="BDMekawashModel.FK_Car_Brand" FromRole="Brand" ToRole="Car" />
         </EntityType>
         <EntityType Name="Car">
           <Key>
@@ -162,6 +536,8 @@
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="BrandId" Type="Int32" />
           <Property Name="CustomerId" Type="Int32" />
+          <NavigationProperty Name="Brand" Relationship="BDMekawashModel.FK_Car_Brand" FromRole="Car" ToRole="Brand" />
+          <NavigationProperty Name="Customer" Relationship="BDMekawashModel.FK_Car_Customer" FromRole="Car" ToRole="Customer" />
         </EntityType>
         <EntityType Name="Category">
           <Key>
@@ -169,72 +545,98 @@
           </Key>
           <Property Name="CategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Provider" Relationship="BDMekawashModel.FK_Provider_Category" FromRole="Category" ToRole="Provider" />
         </EntityType>
         <EntityType Name="Customer">
           <Key>
             <PropertyRef Name="CustomerId" />
           </Key>
           <Property Name="CustomerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Names" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="LastNames" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="DocumentIdentity" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Names" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="LastNames" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="DocumentIdentity" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="BirthdayDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Username" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Username" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Status" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
           <Property Name="DepartmentId" Type="Int32" />
           <Property Name="ProvinceId" Type="Int32" />
           <Property Name="DistrictId" Type="Int32" />
           <Property Name="Phone" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Car" Relationship="BDMekawashModel.FK_Car_Customer" FromRole="Customer" ToRole="Car" />
+          <NavigationProperty Name="Department" Relationship="BDMekawashModel.FK_Customer_Department" FromRole="Customer" ToRole="Department" />
+          <NavigationProperty Name="District" Relationship="BDMekawashModel.FK_Customer_District" FromRole="Customer" ToRole="District" />
+          <NavigationProperty Name="Province" Relationship="BDMekawashModel.FK_Customer_ProvinceId" FromRole="Customer" ToRole="Province" />
+          <NavigationProperty Name="Qualification" Relationship="BDMekawashModel.FK_Qualification_Customer" FromRole="Customer" ToRole="Qualification" />
+          <NavigationProperty Name="Reservation" Relationship="BDMekawashModel.FK_Reservation_Customer" FromRole="Customer" ToRole="Reservation" />
         </EntityType>
         <EntityType Name="Department">
           <Key>
             <PropertyRef Name="DepartmentId" />
           </Key>
           <Property Name="DepartmentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Customer" Relationship="BDMekawashModel.FK_Customer_Department" FromRole="Department" ToRole="Customer" />
+          <NavigationProperty Name="Local" Relationship="BDMekawashModel.FK_Local_Department" FromRole="Department" ToRole="Local" />
+          <NavigationProperty Name="Province" Relationship="BDMekawashModel.FK_ProvinceId_Department" FromRole="Department" ToRole="Province" />
         </EntityType>
         <EntityType Name="District">
           <Key>
             <PropertyRef Name="DistrictId" />
           </Key>
           <Property Name="DistrictId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="ProvinceId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Customer" Relationship="BDMekawashModel.FK_Customer_District" FromRole="District" ToRole="Customer" />
+          <NavigationProperty Name="Province" Relationship="BDMekawashModel.FK_District_ProvinceId" FromRole="District" ToRole="Province" />
+          <NavigationProperty Name="Local" Relationship="BDMekawashModel.FK_Local_District" FromRole="District" ToRole="Local" />
         </EntityType>
         <EntityType Name="Local">
           <Key>
             <PropertyRef Name="LocalId" />
           </Key>
           <Property Name="LocalId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Address" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="DistrictId" Type="Int32" Nullable="false" />
           <Property Name="ProvinceId" Type="Int32" Nullable="false" />
           <Property Name="DepartmentId" Type="Int32" Nullable="false" />
           <Property Name="ProviderId" Type="Int32" />
           <Property Name="Punctuation" Type="Int32" />
           <Property Name="Status" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Department" Relationship="BDMekawashModel.FK_Local_Department" FromRole="Local" ToRole="Department" />
+          <NavigationProperty Name="District" Relationship="BDMekawashModel.FK_Local_District" FromRole="Local" ToRole="District" />
+          <NavigationProperty Name="Provider" Relationship="BDMekawashModel.FK_Local_Provider" FromRole="Local" ToRole="Provider" />
+          <NavigationProperty Name="Province" Relationship="BDMekawashModel.FK_Local_ProvinceId" FromRole="Local" ToRole="Province" />
+          <NavigationProperty Name="Qualification" Relationship="BDMekawashModel.FK_Qualification_Local" FromRole="Local" ToRole="Qualification" />
+          <NavigationProperty Name="Reservation" Relationship="BDMekawashModel.FK_Reservation_Local" FromRole="Local" ToRole="Reservation" />
+          <NavigationProperty Name="Service" Relationship="BDMekawashModel.FK_Servicio_Local" FromRole="Local" ToRole="Service" />
         </EntityType>
         <EntityType Name="Provider">
           <Key>
             <PropertyRef Name="ProviderId" />
           </Key>
           <Property Name="ProviderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="BusinessName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="RUC" Type="String" MaxLength="11" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Telephone" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Status" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BusinessName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="RUC" Type="String" Nullable="false" MaxLength="11" FixedLength="false" Unicode="false" />
+          <Property Name="Telephone" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
           <Property Name="CategoryId" Type="Int32" />
           <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Category" Relationship="BDMekawashModel.FK_Provider_Category" FromRole="Provider" ToRole="Category" />
+          <NavigationProperty Name="Local" Relationship="BDMekawashModel.FK_Local_Provider" FromRole="Provider" ToRole="Local" />
         </EntityType>
         <EntityType Name="Province">
           <Key>
             <PropertyRef Name="ProvinceId" />
           </Key>
           <Property Name="ProvinceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="DepartmentId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Customer" Relationship="BDMekawashModel.FK_Customer_ProvinceId" FromRole="Province" ToRole="Customer" />
+          <NavigationProperty Name="Department" Relationship="BDMekawashModel.FK_ProvinceId_Department" FromRole="Province" ToRole="Department" />
+          <NavigationProperty Name="District" Relationship="BDMekawashModel.FK_District_ProvinceId" FromRole="Province" ToRole="District" />
+          <NavigationProperty Name="Local" Relationship="BDMekawashModel.FK_Local_ProvinceId" FromRole="Province" ToRole="Local" />
         </EntityType>
         <EntityType Name="Qualification">
           <Key>
@@ -242,9 +644,11 @@
           </Key>
           <Property Name="QualificationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Punctuation" Type="Int32" Nullable="false" />
-          <Property Name="Detail" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Detail" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="CustomerId" Type="Int32" Nullable="false" />
           <Property Name="LocalId" Type="Int32" />
+          <NavigationProperty Name="Customer" Relationship="BDMekawashModel.FK_Qualification_Customer" FromRole="Qualification" ToRole="Customer" />
+          <NavigationProperty Name="Local" Relationship="BDMekawashModel.FK_Qualification_Local" FromRole="Qualification" ToRole="Local" />
         </EntityType>
         <EntityType Name="Reservation">
           <Key>
@@ -257,6 +661,9 @@
           <Property Name="Schedule" Type="Time" Precision="7" />
           <Property Name="Detail" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Status" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Customer" Relationship="BDMekawashModel.FK_Reservation_Customer" FromRole="Reservation" ToRole="Customer" />
+          <NavigationProperty Name="Local" Relationship="BDMekawashModel.FK_Reservation_Local" FromRole="Reservation" ToRole="Local" />
+          <NavigationProperty Name="Service" Relationship="BDMekawashModel.FK_Reservation_Servicio" FromRole="Reservation" ToRole="Service" />
         </EntityType>
         <EntityType Name="Service">
           <Key>
@@ -269,22 +676,226 @@
           <Property Name="UrlPhoto" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Cost" Type="Decimal" Precision="18" Scale="4" />
           <Property Name="Status" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Local" Relationship="BDMekawashModel.FK_Servicio_Local" FromRole="Service" ToRole="Local" />
+          <NavigationProperty Name="Reservation" Relationship="BDMekawashModel.FK_Reservation_Servicio" FromRole="Service" ToRole="Reservation" />
         </EntityType>
-        <EntityContainer Name="BDMekawashEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Brand" EntityType="Self.Brand" />
-          <EntitySet Name="Car" EntityType="Self.Car" />
-          <EntitySet Name="Category" EntityType="Self.Category" />
-          <EntitySet Name="Customer" EntityType="Self.Customer" />
-          <EntitySet Name="Department" EntityType="Self.Department" />
-          <EntitySet Name="District" EntityType="Self.District" />
-          <EntitySet Name="Local" EntityType="Self.Local" />
-          <EntitySet Name="Provider" EntityType="Self.Provider" />
-          <EntitySet Name="Province" EntityType="Self.Province" />
-          <EntitySet Name="Qualification" EntityType="Self.Qualification" />
-          <EntitySet Name="Reservation" EntityType="Self.Reservation" />
-          <EntitySet Name="Service" EntityType="Self.Service" />
-        </EntityContainer>
-      </Schema>
+        <Association Name="FK_Car_Brand">
+          <End Type="BDMekawashModel.Brand" Role="Brand" Multiplicity="0..1" />
+          <End Type="BDMekawashModel.Car" Role="Car" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Brand">
+              <PropertyRef Name="BrandId" />
+            </Principal>
+            <Dependent Role="Car">
+              <PropertyRef Name="BrandId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Car_Customer">
+          <End Type="BDMekawashModel.Customer" Role="Customer" Multiplicity="0..1" />
+          <End Type="BDMekawashModel.Car" Role="Car" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="Car">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Provider_Category">
+          <End Type="BDMekawashModel.Category" Role="Category" Multiplicity="0..1" />
+          <End Type="BDMekawashModel.Provider" Role="Provider" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="CategoryId" />
+            </Principal>
+            <Dependent Role="Provider">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Customer_Department">
+          <End Type="BDMekawashModel.Department" Role="Department" Multiplicity="0..1" />
+          <End Type="BDMekawashModel.Customer" Role="Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="DepartmentId" />
+            </Principal>
+            <Dependent Role="Customer">
+              <PropertyRef Name="DepartmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Customer_District">
+          <End Type="BDMekawashModel.District" Role="District" Multiplicity="0..1" />
+          <End Type="BDMekawashModel.Customer" Role="Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="District">
+              <PropertyRef Name="DistrictId" />
+            </Principal>
+            <Dependent Role="Customer">
+              <PropertyRef Name="DistrictId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Customer_ProvinceId">
+          <End Type="BDMekawashModel.Province" Role="Province" Multiplicity="0..1" />
+          <End Type="BDMekawashModel.Customer" Role="Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Province">
+              <PropertyRef Name="ProvinceId" />
+            </Principal>
+            <Dependent Role="Customer">
+              <PropertyRef Name="ProvinceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Qualification_Customer">
+          <End Type="BDMekawashModel.Customer" Role="Customer" Multiplicity="1" />
+          <End Type="BDMekawashModel.Qualification" Role="Qualification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="Qualification">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reservation_Customer">
+          <End Type="BDMekawashModel.Customer" Role="Customer" Multiplicity="1" />
+          <End Type="BDMekawashModel.Reservation" Role="Reservation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="Reservation">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Local_Department">
+          <End Type="BDMekawashModel.Department" Role="Department" Multiplicity="1" />
+          <End Type="BDMekawashModel.Local" Role="Local" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="DepartmentId" />
+            </Principal>
+            <Dependent Role="Local">
+              <PropertyRef Name="DepartmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProvinceId_Department">
+          <End Type="BDMekawashModel.Department" Role="Department" Multiplicity="1" />
+          <End Type="BDMekawashModel.Province" Role="Province" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="DepartmentId" />
+            </Principal>
+            <Dependent Role="Province">
+              <PropertyRef Name="DepartmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_District_ProvinceId">
+          <End Type="BDMekawashModel.Province" Role="Province" Multiplicity="1" />
+          <End Type="BDMekawashModel.District" Role="District" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Province">
+              <PropertyRef Name="ProvinceId" />
+            </Principal>
+            <Dependent Role="District">
+              <PropertyRef Name="ProvinceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Local_District">
+          <End Type="BDMekawashModel.District" Role="District" Multiplicity="1" />
+          <End Type="BDMekawashModel.Local" Role="Local" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="District">
+              <PropertyRef Name="DistrictId" />
+            </Principal>
+            <Dependent Role="Local">
+              <PropertyRef Name="DistrictId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Local_Provider">
+          <End Type="BDMekawashModel.Provider" Role="Provider" Multiplicity="0..1" />
+          <End Type="BDMekawashModel.Local" Role="Local" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Provider">
+              <PropertyRef Name="ProviderId" />
+            </Principal>
+            <Dependent Role="Local">
+              <PropertyRef Name="ProviderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Local_ProvinceId">
+          <End Type="BDMekawashModel.Province" Role="Province" Multiplicity="1" />
+          <End Type="BDMekawashModel.Local" Role="Local" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Province">
+              <PropertyRef Name="ProvinceId" />
+            </Principal>
+            <Dependent Role="Local">
+              <PropertyRef Name="ProvinceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Qualification_Local">
+          <End Type="BDMekawashModel.Local" Role="Local" Multiplicity="0..1" />
+          <End Type="BDMekawashModel.Qualification" Role="Qualification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Local">
+              <PropertyRef Name="LocalId" />
+            </Principal>
+            <Dependent Role="Qualification">
+              <PropertyRef Name="LocalId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reservation_Local">
+          <End Type="BDMekawashModel.Local" Role="Local" Multiplicity="0..1" />
+          <End Type="BDMekawashModel.Reservation" Role="Reservation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Local">
+              <PropertyRef Name="LocalId" />
+            </Principal>
+            <Dependent Role="Reservation">
+              <PropertyRef Name="LocalId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Servicio_Local">
+          <End Type="BDMekawashModel.Local" Role="Local" Multiplicity="0..1" />
+          <End Type="BDMekawashModel.Service" Role="Service" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Local">
+              <PropertyRef Name="LocalId" />
+            </Principal>
+            <Dependent Role="Service">
+              <PropertyRef Name="LocalId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reservation_Servicio">
+          <End Type="BDMekawashModel.Service" Role="Service" Multiplicity="0..1" />
+          <End Type="BDMekawashModel.Reservation" Role="Reservation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Service">
+              <PropertyRef Name="ServiceId" />
+            </Principal>
+            <Dependent Role="Reservation">
+              <PropertyRef Name="ServiceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -293,135 +904,135 @@
           <EntitySetMapping Name="Brand">
             <EntityTypeMapping TypeName="BDMekawashModel.Brand">
               <MappingFragment StoreEntitySet="Brand">
-                <ScalarProperty Name="BrandId" ColumnName="BrandId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="BrandId" ColumnName="BrandId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Car">
             <EntityTypeMapping TypeName="BDMekawashModel.Car">
               <MappingFragment StoreEntitySet="Car">
-                <ScalarProperty Name="CarId" ColumnName="CarId" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="BrandId" ColumnName="BrandId" />
                 <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="BrandId" ColumnName="BrandId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="CarId" ColumnName="CarId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Category">
             <EntityTypeMapping TypeName="BDMekawashModel.Category">
               <MappingFragment StoreEntitySet="Category">
-                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Customer">
             <EntityTypeMapping TypeName="BDMekawashModel.Customer">
               <MappingFragment StoreEntitySet="Customer">
-                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
-                <ScalarProperty Name="Names" ColumnName="Names" />
-                <ScalarProperty Name="LastNames" ColumnName="LastNames" />
-                <ScalarProperty Name="DocumentIdentity" ColumnName="DocumentIdentity" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="BirthdayDate" ColumnName="BirthdayDate" />
-                <ScalarProperty Name="Username" ColumnName="Username" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
-                <ScalarProperty Name="ProvinceId" ColumnName="ProvinceId" />
-                <ScalarProperty Name="DistrictId" ColumnName="DistrictId" />
                 <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="DistrictId" ColumnName="DistrictId" />
+                <ScalarProperty Name="ProvinceId" ColumnName="ProvinceId" />
+                <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="BirthdayDate" ColumnName="BirthdayDate" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="DocumentIdentity" ColumnName="DocumentIdentity" />
+                <ScalarProperty Name="LastNames" ColumnName="LastNames" />
+                <ScalarProperty Name="Names" ColumnName="Names" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Department">
             <EntityTypeMapping TypeName="BDMekawashModel.Department">
               <MappingFragment StoreEntitySet="Department">
-                <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="District">
             <EntityTypeMapping TypeName="BDMekawashModel.District">
               <MappingFragment StoreEntitySet="District">
-                <ScalarProperty Name="DistrictId" ColumnName="DistrictId" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ProvinceId" ColumnName="ProvinceId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="DistrictId" ColumnName="DistrictId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Local">
             <EntityTypeMapping TypeName="BDMekawashModel.Local">
               <MappingFragment StoreEntitySet="Local">
-                <ScalarProperty Name="LocalId" ColumnName="LocalId" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="DistrictId" ColumnName="DistrictId" />
-                <ScalarProperty Name="ProvinceId" ColumnName="ProvinceId" />
-                <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
-                <ScalarProperty Name="ProviderId" ColumnName="ProviderId" />
-                <ScalarProperty Name="Punctuation" ColumnName="Punctuation" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Punctuation" ColumnName="Punctuation" />
+                <ScalarProperty Name="ProviderId" ColumnName="ProviderId" />
+                <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
+                <ScalarProperty Name="ProvinceId" ColumnName="ProvinceId" />
+                <ScalarProperty Name="DistrictId" ColumnName="DistrictId" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="LocalId" ColumnName="LocalId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Provider">
             <EntityTypeMapping TypeName="BDMekawashModel.Provider">
               <MappingFragment StoreEntitySet="Provider">
-                <ScalarProperty Name="ProviderId" ColumnName="ProviderId" />
-                <ScalarProperty Name="BusinessName" ColumnName="BusinessName" />
-                <ScalarProperty Name="RUC" ColumnName="RUC" />
-                <ScalarProperty Name="Telephone" ColumnName="Telephone" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Telephone" ColumnName="Telephone" />
+                <ScalarProperty Name="RUC" ColumnName="RUC" />
+                <ScalarProperty Name="BusinessName" ColumnName="BusinessName" />
+                <ScalarProperty Name="ProviderId" ColumnName="ProviderId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Province">
             <EntityTypeMapping TypeName="BDMekawashModel.Province">
               <MappingFragment StoreEntitySet="Province">
-                <ScalarProperty Name="ProvinceId" ColumnName="ProvinceId" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ProvinceId" ColumnName="ProvinceId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Qualification">
             <EntityTypeMapping TypeName="BDMekawashModel.Qualification">
               <MappingFragment StoreEntitySet="Qualification">
-                <ScalarProperty Name="QualificationId" ColumnName="QualificationId" />
-                <ScalarProperty Name="Punctuation" ColumnName="Punctuation" />
-                <ScalarProperty Name="Detail" ColumnName="Detail" />
-                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
                 <ScalarProperty Name="LocalId" ColumnName="LocalId" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="Detail" ColumnName="Detail" />
+                <ScalarProperty Name="Punctuation" ColumnName="Punctuation" />
+                <ScalarProperty Name="QualificationId" ColumnName="QualificationId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Reservation">
             <EntityTypeMapping TypeName="BDMekawashModel.Reservation">
               <MappingFragment StoreEntitySet="Reservation">
-                <ScalarProperty Name="ReservationId" ColumnName="ReservationId" />
-                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
-                <ScalarProperty Name="LocalId" ColumnName="LocalId" />
-                <ScalarProperty Name="ServiceId" ColumnName="ServiceId" />
-                <ScalarProperty Name="Schedule" ColumnName="Schedule" />
-                <ScalarProperty Name="Detail" ColumnName="Detail" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Detail" ColumnName="Detail" />
+                <ScalarProperty Name="Schedule" ColumnName="Schedule" />
+                <ScalarProperty Name="ServiceId" ColumnName="ServiceId" />
+                <ScalarProperty Name="LocalId" ColumnName="LocalId" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="ReservationId" ColumnName="ReservationId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Service">
             <EntityTypeMapping TypeName="BDMekawashModel.Service">
               <MappingFragment StoreEntitySet="Service">
-                <ScalarProperty Name="ServiceId" ColumnName="ServiceId" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Detail" ColumnName="Detail" />
-                <ScalarProperty Name="LocalId" ColumnName="LocalId" />
-                <ScalarProperty Name="UrlPhoto" ColumnName="UrlPhoto" />
-                <ScalarProperty Name="Cost" ColumnName="Cost" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="UrlPhoto" ColumnName="UrlPhoto" />
+                <ScalarProperty Name="LocalId" ColumnName="LocalId" />
+                <ScalarProperty Name="Detail" ColumnName="Detail" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ServiceId" ColumnName="ServiceId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

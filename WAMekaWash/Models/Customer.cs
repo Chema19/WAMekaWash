@@ -14,6 +14,14 @@ namespace WAMekaWash.Models
     
     public partial class Customer
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Customer()
+        {
+            this.Car = new HashSet<Car>();
+            this.Qualification = new HashSet<Qualification>();
+            this.Reservation = new HashSet<Reservation>();
+        }
+    
         public int CustomerId { get; set; }
         public string Names { get; set; }
         public string LastNames { get; set; }
@@ -26,5 +34,15 @@ namespace WAMekaWash.Models
         public Nullable<int> ProvinceId { get; set; }
         public Nullable<int> DistrictId { get; set; }
         public string Phone { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Car> Car { get; set; }
+        public virtual Department Department { get; set; }
+        public virtual District District { get; set; }
+        public virtual Province Province { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Qualification> Qualification { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Reservation> Reservation { get; set; }
     }
 }

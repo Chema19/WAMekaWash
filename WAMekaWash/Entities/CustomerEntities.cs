@@ -15,7 +15,7 @@ namespace WAMekaWash.Entities
         public DateTime Birthday { set; get; }
         public String Username { set; get; }
         public String Status { set; get; }
-        public Int32? DepartementId { set; get; }
+        public Int32? DepartmentId { set; get; }
         public Int32? ProvinceId { set; get; }
         public Int32? DistrictId { set; get; }
         public String Phone { set; get; }

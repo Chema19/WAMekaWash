@@ -3,24 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Web.Http;
 using System.Transactions;
+using System.Web.Http;
 using WAMekaWash.Entities;
-using WAMekaWash.Models;
 using WAMekaWash.Helpers;
+using WAMekaWash.Models;
 
 namespace WAMekaWash.Controllers
 {
     [Authorize]
     [RoutePrefix("wamekawash/v4")]
-    public class LocalController : BaseApiController
+    public class ServiceController : BaseApiController
     {
         [HttpGet]
-        [Route("providers/{providerid}/locals")]
-        public IHttpActionResult ListLocals(Int32? providerid)
+        [Route("locals/{localid}/services")]
+        public IHttpActionResult ListServices(Int32? localid)
         {
 
-            try {
+            try
+            {
                 using (var ts = new TransactionScope())
                 {
                     if (providerid.HasValue)
@@ -50,14 +51,15 @@ namespace WAMekaWash.Controllers
                 }
                 return Ok(response);
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 return Unauthorized();
             }
-            
+
         }
         [HttpGet]
-        [Route("providers/{providerid}/locals/{localid}")]
-        public IHttpActionResult ReadLocal(Int32? providerid, Int32? localid)
+        [Route("locals/{localid}/services/{serviceid}")]
+        public IHttpActionResult ReadService(Int32? localid, Int32? serviceid)
         {
 
             try
@@ -80,7 +82,8 @@ namespace WAMekaWash.Controllers
                         response.Error = false;
                         response.Message = "Success";
                     }
-                    else {
+                    else
+                    {
                         response.Data = null;
                         response.Error = true;
                         response.Message = "Error, provider or local id empty";
@@ -96,8 +99,8 @@ namespace WAMekaWash.Controllers
 
         }
         [HttpPost]
-        [Route("providers/{providerid}/locals")]
-        public IHttpActionResult RegisterLocal(Int32? providerid, LocalEntities model)
+        [Route("locals/{localid}/services")]
+        public IHttpActionResult RegisterService(Int32? localid, ServiceEntities model)
         {
             try
             {
@@ -152,8 +155,8 @@ namespace WAMekaWash.Controllers
             }
         }
         [HttpDelete]
-        [Route("providers/{providerid}/locals/{localid}")]
-        public IHttpActionResult DeleteLocal(Int32? providerid,Int32? localid)
+        [Route("locals/{localid}/services/{serviceid}")]
+        public IHttpActionResult DeleteService(Int32? localid, Int32? serviceid)
         {
             try
             {
@@ -171,7 +174,8 @@ namespace WAMekaWash.Controllers
                         response.Error = false;
                         response.Message = "Success, deleted local";
                     }
-                    else {
+                    else
+                    {
                         response.Data = null;
                         response.Error = true;
                         response.Message = "Error, provider or local id empty";
@@ -186,8 +190,8 @@ namespace WAMekaWash.Controllers
             }
         }
         [HttpPut]
-        [Route("providers/{providerid}/locals")]
-        public IHttpActionResult UpdateLocal(Int32? providerid, LocalEntities model)
+        [Route("locals/{localid}/services")]
+        public IHttpActionResult UpdateService(Int32? localid, ServiceEntities model)
         {
             try
             {
@@ -228,7 +232,7 @@ namespace WAMekaWash.Controllers
                             response.Error = true;
                             response.Message = "Error, Local or provider id empty";
                         }
-                        
+
                         ts.Complete();
                     }
                 }

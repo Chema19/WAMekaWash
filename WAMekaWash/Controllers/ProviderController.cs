@@ -132,21 +132,25 @@ namespace WAMekaWash.Controllers
                         if (model.ProviderId.HasValue)
                         {
                             provider = context.Provider.FirstOrDefault(x => x.ProviderId == model.ProviderId);
+                            provider.BusinessName = model.BusinessName;
+                            provider.RUC = model.Ruc;
+                            provider.Telephone = model.Telephone;
+                            provider.Email = model.Email;
+                            provider.CategoryId = model.CategoryId;
+                            provider.Password = CipherLogic.Cipher(CipherAction.Encrypt, CipherType.UserPassword, model.Password);
+
+                            context.SaveChanges();
+
+                            response.Data = null;
+                            response.Error = false;
+                            response.Message = "Success, updated provider";
+                        }              
+                        else
+                        {
+                            response.Data = null;
+                            response.Error = true;
+                            response.Message = "Error, empty provider";
                         }
-                        
-                        provider.BusinessName = model.BusinessName;
-                        provider.RUC = model.Ruc;
-                        provider.Telephone = model.Telephone;
-                        provider.Email = model.Email;
-                        provider.CategoryId = model.CategoryId;
-                        provider.Password = CipherLogic.Cipher(CipherAction.Encrypt, CipherType.UserPassword, model.Password);
-
-                        context.SaveChanges();
-
-                        response.Data = null;
-                        response.Error = false;
-                        response.Message = "Success, updated provider";
-
                         ts.Complete();
                     }
                 }

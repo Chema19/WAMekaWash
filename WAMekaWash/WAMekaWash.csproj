@@ -187,9 +187,11 @@
     <Compile Include="Controllers\LocalController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ProviderController.cs" />
+    <Compile Include="Controllers\ServiceController.cs" />
     <Compile Include="Controllers\TokenGenerator.cs" />
     <Compile Include="Controllers\TokenValidationHandler.cs" />
     <Compile Include="Entities\CustomerEntities.cs" />
+    <Compile Include="Entities\LocalEntities.cs" />
     <Compile Include="Entities\ProviderEntities.cs" />
     <Compile Include="Entities\ResultRequest.cs" />
     <Compile Include="Global.asax.cs">
@@ -197,6 +199,7 @@
     </Compile>
     <Compile Include="Helpers\ConstantHelpers.cs" />
     <Compile Include="Logics\CipherLogic.cs" />
+    <Compile Include="Entities\LoginRequest.cs" />
     <Compile Include="Models\Brand.cs">
       <DependentUpon>ModelMekaWash.tt</DependentUpon>
     </Compile>
@@ -218,7 +221,6 @@
     <Compile Include="Models\Local.cs">
       <DependentUpon>ModelMekaWash.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entities\LoginRequest.cs" />
     <Compile Include="Models\ModelMekaWash.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -249,9 +251,6 @@
     <Compile Include="Models\Service.cs">
       <DependentUpon>ModelMekaWash.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\sysdiagrams.cs">
-      <DependentUpon>ModelMekaWash.tt</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -265,8 +264,8 @@
     <Content Include="Global.asax" />
     <Content Include="Models\ModelMekaWash.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>ModelMekaWash.Context.cs</LastGenOutput>
       <DependentUpon>ModelMekaWash.edmx</DependentUpon>
+      <LastGenOutput>ModelMekaWash.Context.cs</LastGenOutput>
     </Content>
     <Content Include="Models\ModelMekaWash.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

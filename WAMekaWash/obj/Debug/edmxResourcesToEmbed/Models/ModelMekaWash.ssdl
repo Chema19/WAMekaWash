@@ -123,16 +123,6 @@
     <Property Name="Cost" Type="decimal" Precision="18" Scale="4" />
     <Property Name="Status" Type="varchar" MaxLength="3" />
   </EntityType>
-  <EntityType Name="sysdiagrams">
-    <Key>
-      <PropertyRef Name="diagram_id" />
-    </Key>
-    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-    <Property Name="principal_id" Type="int" Nullable="false" />
-    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="version" Type="int" />
-    <Property Name="definition" Type="varbinary(max)" />
-  </EntityType>
   <Association Name="FK_Car_Brand">
     <End Role="Brand" Type="Self.Brand" Multiplicity="0..1" />
     <End Role="Car" Type="Self.Car" Multiplicity="*" />
@@ -362,7 +352,6 @@
     <EntitySet Name="Qualification" EntityType="Self.Qualification" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Reservation" EntityType="Self.Reservation" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Service" EntityType="Self.Service" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_Car_Brand" Association="Self.FK_Car_Brand">
       <End Role="Brand" EntitySet="Brand" />
       <End Role="Car" EntitySet="Car" />

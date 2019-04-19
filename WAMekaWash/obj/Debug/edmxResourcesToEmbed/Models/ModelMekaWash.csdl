@@ -13,7 +13,6 @@
     <EntitySet Name="Qualification" EntityType="BDMekawashModel.Qualification" />
     <EntitySet Name="Reservation" EntityType="BDMekawashModel.Reservation" />
     <EntitySet Name="Service" EntityType="BDMekawashModel.Service" />
-    <EntitySet Name="sysdiagrams" EntityType="BDMekawashModel.sysdiagrams" />
     <AssociationSet Name="FK_Car_Brand" Association="BDMekawashModel.FK_Car_Brand">
       <End Role="Brand" EntitySet="Brand" />
       <End Role="Car" EntitySet="Car" />
@@ -245,16 +244,6 @@
     <Property Name="Status" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="Local" Relationship="BDMekawashModel.FK_Servicio_Local" FromRole="Service" ToRole="Local" />
     <NavigationProperty Name="Reservation" Relationship="BDMekawashModel.FK_Reservation_Servicio" FromRole="Service" ToRole="Reservation" />
-  </EntityType>
-  <EntityType Name="sysdiagrams">
-    <Key>
-      <PropertyRef Name="diagram_id" />
-    </Key>
-    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-    <Property Name="principal_id" Type="Int32" Nullable="false" />
-    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="version" Type="Int32" />
-    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
   </EntityType>
   <Association Name="FK_Car_Brand">
     <End Type="BDMekawashModel.Brand" Role="Brand" Multiplicity="0..1" />

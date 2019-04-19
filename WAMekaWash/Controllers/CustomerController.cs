@@ -142,25 +142,30 @@ namespace WAMekaWash.Controllers
                         if (model.CustomerId.HasValue)
                         {
                             customer = context.Customer.FirstOrDefault(x => x.CustomerId == model.CustomerId);
+
+                            customer.Names = model.Names;
+                            customer.LastNames = model.LastNames;
+                            customer.DocumentIdentity = model.DocumentIdentity;
+                            customer.Password = CipherLogic.Cipher(CipherAction.Encrypt, CipherType.UserPassword, model.Password);
+                            customer.BirthdayDate = model.Birthday;
+                            customer.Username = model.Username;
+                            customer.DepartmentId = model.DepartmentId;
+                            customer.ProvinceId = model.ProvinceId;
+                            customer.DistrictId = model.DistrictId;
+                            customer.Phone = model.Phone;
+
+                            context.SaveChanges();
+
+                            response.Data = null;
+                            response.Error = false;
+                            response.Message = "Success, updated customer";
                         }
-
-                        customer.Names = model.Names;
-                        customer.LastNames = model.LastNames;
-                        customer.DocumentIdentity = model.DocumentIdentity;
-                        customer.Password = CipherLogic.Cipher(CipherAction.Encrypt, CipherType.UserPassword, model.Password);
-                        customer.BirthdayDate = model.Birthday;
-                        customer.Username = model.Username;
-                        customer.DepartmentId = model.DepartementId;
-                        customer.ProvinceId = model.ProvinceId;
-                        customer.DistrictId = model.DistrictId;
-                        customer.Phone = model.Phone;
-
-                        context.SaveChanges();
-
-                        response.Data = null;
-                        response.Error = false;
-                        response.Message = "Success, updated customer";
-
+                        else
+                        {
+                            response.Data = null;
+                            response.Error = true;
+                            response.Message = "Error, empty customer";
+                        }
                         ts.Complete();
                     }
                 }

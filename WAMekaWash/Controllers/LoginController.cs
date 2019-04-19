@@ -100,7 +100,7 @@ namespace WAMekaWash.Controllers
                             customer.BirthdayDate = model.Birthday;
                             customer.Username = model.Username;
                             customer.Status = ConstantHelpers.Status.ACTIVE;
-                            customer.DepartmentId = model.DepartementId;
+                            customer.DepartmentId = model.DepartmentId;
                             customer.ProvinceId = model.ProvinceId;
                             customer.DistrictId = model.DistrictId;
                             customer.Phone = model.Phone;

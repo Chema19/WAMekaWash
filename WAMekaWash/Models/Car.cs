@@ -18,5 +18,8 @@ namespace WAMekaWash.Models
         public string Description { get; set; }
         public Nullable<int> BrandId { get; set; }
         public Nullable<int> CustomerId { get; set; }
+    
+        public virtual Brand Brand { get; set; }
+        public virtual Customer Customer { get; set; }
     }
 }
