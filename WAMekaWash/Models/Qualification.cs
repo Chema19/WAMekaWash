@@ -19,8 +19,5 @@ namespace WAMekaWash.Models
         public string Detail { get; set; }
         public int CustomerId { get; set; }
         public Nullable<int> LocalId { get; set; }
-    
-        public virtual Customer Customer { get; set; }
-        public virtual Local Local { get; set; }
     }
 }

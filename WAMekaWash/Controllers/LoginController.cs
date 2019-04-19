@@ -62,13 +62,10 @@ namespace WAMekaWash.Controllers
                 return BadRequest();
             }
         }
-
-
         [HttpPost]
         [Route("customers")]
         public IHttpActionResult RegisterCustomer(CustomerEntities model)
         {
-            var Httpresponse = new HttpResponseMessage();
             try
             {
                 using (var ts = new TransactionScope())
@@ -125,7 +122,6 @@ namespace WAMekaWash.Controllers
                 return Unauthorized();
             }
         }
-
         [HttpPost]
         [Route("providers")]
         public IHttpActionResult RegisterProvider(ProviderEntities model) {
@@ -175,7 +171,6 @@ namespace WAMekaWash.Controllers
                 return Unauthorized();
             }
         }
-
         [HttpGet]
         [Route("categories")]
         public IHttpActionResult ListCategories()
@@ -197,7 +192,6 @@ namespace WAMekaWash.Controllers
                 return Unauthorized();
             }
         }
-
         [HttpGet]
         [Route("departments")]
         public IHttpActionResult ListDepartments()
@@ -249,6 +243,27 @@ namespace WAMekaWash.Controllers
                 using (var ts = new TransactionScope())
                 {
                     response.Data = context.District.Where(x=>x.ProvinceId == provinceid).Select(x => new { DistrictId = x.DistrictId, Name = x.Name }).ToList(); ;
+                    response.Error = false;
+                    response.Message = "Success";
+
+                    ts.Complete();
+                }
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return Unauthorized();
+            }
+        }
+        [HttpGet]
+        [Route("brands")]
+        public IHttpActionResult ListBrands()
+        {
+            try
+            {
+                using (var ts = new TransactionScope())
+                {
+                    response.Data = context.Brand.Select(x => new { BrandId = x.BrandId, Name = x.Name }).ToList(); ;
                     response.Error = false;
                     response.Message = "Success";
 

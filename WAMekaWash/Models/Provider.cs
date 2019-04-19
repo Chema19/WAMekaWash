@@ -14,12 +14,6 @@ namespace WAMekaWash.Models
     
     public partial class Provider
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Provider()
-        {
-            this.Local = new HashSet<Local>();
-        }
-    
         public int ProviderId { get; set; }
         public string BusinessName { get; set; }
         public string RUC { get; set; }
@@ -28,9 +22,5 @@ namespace WAMekaWash.Models
         public string Status { get; set; }
         public Nullable<int> CategoryId { get; set; }
         public string Password { get; set; }
-    
-        public virtual Category Category { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Local> Local { get; set; }
     }
 }

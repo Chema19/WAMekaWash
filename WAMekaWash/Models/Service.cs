@@ -14,12 +14,6 @@ namespace WAMekaWash.Models
     
     public partial class Service
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Service()
-        {
-            this.Reservation = new HashSet<Reservation>();
-        }
-    
         public int ServiceId { get; set; }
         public string Name { get; set; }
         public string Detail { get; set; }
@@ -27,9 +21,5 @@ namespace WAMekaWash.Models
         public string UrlPhoto { get; set; }
         public Nullable<decimal> Cost { get; set; }
         public string Status { get; set; }
-    
-        public virtual Local Local { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Reservation> Reservation { get; set; }
     }
 }

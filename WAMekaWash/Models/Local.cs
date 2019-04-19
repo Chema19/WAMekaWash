@@ -14,14 +14,6 @@ namespace WAMekaWash.Models
     
     public partial class Local
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Local()
-        {
-            this.Qualification = new HashSet<Qualification>();
-            this.Reservation = new HashSet<Reservation>();
-            this.Service = new HashSet<Service>();
-        }
-    
         public int LocalId { get; set; }
         public string Address { get; set; }
         public int DistrictId { get; set; }
@@ -30,16 +22,5 @@ namespace WAMekaWash.Models
         public Nullable<int> ProviderId { get; set; }
         public Nullable<int> Punctuation { get; set; }
         public string Status { get; set; }
-    
-        public virtual Department Department { get; set; }
-        public virtual District District { get; set; }
-        public virtual Provider Provider { get; set; }
-        public virtual Province Province { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Qualification> Qualification { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Reservation> Reservation { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Service> Service { get; set; }
     }
 }

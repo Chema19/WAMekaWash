@@ -1,6 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="BDMekawashModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
   <EntityContainer Name="BDMekawashEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Brand" EntityType="BDMekawashModel.Brand" />
+    <EntitySet Name="Car" EntityType="BDMekawashModel.Car" />
     <EntitySet Name="Category" EntityType="BDMekawashModel.Category" />
     <EntitySet Name="Customer" EntityType="BDMekawashModel.Customer" />
     <EntitySet Name="Department" EntityType="BDMekawashModel.Department" />
@@ -10,8 +12,16 @@
     <EntitySet Name="Province" EntityType="BDMekawashModel.Province" />
     <EntitySet Name="Qualification" EntityType="BDMekawashModel.Qualification" />
     <EntitySet Name="Reservation" EntityType="BDMekawashModel.Reservation" />
-    <EntitySet Name="Schedule" EntityType="BDMekawashModel.Schedule" />
     <EntitySet Name="Service" EntityType="BDMekawashModel.Service" />
+    <EntitySet Name="sysdiagrams" EntityType="BDMekawashModel.sysdiagrams" />
+    <AssociationSet Name="FK_Car_Brand" Association="BDMekawashModel.FK_Car_Brand">
+      <End Role="Brand" EntitySet="Brand" />
+      <End Role="Car" EntitySet="Car" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Car_Customer" Association="BDMekawashModel.FK_Car_Customer">
+      <End Role="Customer" EntitySet="Customer" />
+      <End Role="Car" EntitySet="Car" />
+    </AssociationSet>
     <AssociationSet Name="FK_Provider_Category" Association="BDMekawashModel.FK_Provider_Category">
       <End Role="Category" EntitySet="Category" />
       <End Role="Provider" EntitySet="Provider" />
@@ -77,6 +87,25 @@
       <End Role="Reservation" EntitySet="Reservation" />
     </AssociationSet>
   </EntityContainer>
+  <EntityType Name="Brand">
+    <Key>
+      <PropertyRef Name="BrandId" />
+    </Key>
+    <Property Name="BrandId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Car" Relationship="BDMekawashModel.FK_Car_Brand" FromRole="Brand" ToRole="Car" />
+  </EntityType>
+  <EntityType Name="Car">
+    <Key>
+      <PropertyRef Name="CarId" />
+    </Key>
+    <Property Name="CarId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="BrandId" Type="Int32" />
+    <Property Name="CustomerId" Type="Int32" />
+    <NavigationProperty Name="Brand" Relationship="BDMekawashModel.FK_Car_Brand" FromRole="Car" ToRole="Brand" />
+    <NavigationProperty Name="Customer" Relationship="BDMekawashModel.FK_Car_Customer" FromRole="Car" ToRole="Customer" />
+  </EntityType>
   <EntityType Name="Category">
     <Key>
       <PropertyRef Name="CategoryId" />
@@ -101,6 +130,7 @@
     <Property Name="ProvinceId" Type="Int32" />
     <Property Name="DistrictId" Type="Int32" />
     <Property Name="Phone" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Car" Relationship="BDMekawashModel.FK_Car_Customer" FromRole="Customer" ToRole="Car" />
     <NavigationProperty Name="Department" Relationship="BDMekawashModel.FK_Customer_Department" FromRole="Customer" ToRole="Department" />
     <NavigationProperty Name="District" Relationship="BDMekawashModel.FK_Customer_District" FromRole="Customer" ToRole="District" />
     <NavigationProperty Name="Province" Relationship="BDMekawashModel.FK_Customer_ProvinceId" FromRole="Customer" ToRole="Province" />
@@ -202,13 +232,6 @@
     <NavigationProperty Name="Local" Relationship="BDMekawashModel.FK_Reservation_Local" FromRole="Reservation" ToRole="Local" />
     <NavigationProperty Name="Service" Relationship="BDMekawashModel.FK_Reservation_Servicio" FromRole="Reservation" ToRole="Service" />
   </EntityType>
-  <EntityType Name="Schedule">
-    <Key>
-      <PropertyRef Name="ScheduleId" />
-    </Key>
-    <Property Name="ScheduleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Detail" Type="Time" Nullable="false" Precision="7" />
-  </EntityType>
   <EntityType Name="Service">
     <Key>
       <PropertyRef Name="ServiceId" />
@@ -223,6 +246,40 @@
     <NavigationProperty Name="Local" Relationship="BDMekawashModel.FK_Servicio_Local" FromRole="Service" ToRole="Local" />
     <NavigationProperty Name="Reservation" Relationship="BDMekawashModel.FK_Reservation_Servicio" FromRole="Service" ToRole="Reservation" />
   </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <Association Name="FK_Car_Brand">
+    <End Type="BDMekawashModel.Brand" Role="Brand" Multiplicity="0..1" />
+    <End Type="BDMekawashModel.Car" Role="Car" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Brand">
+        <PropertyRef Name="BrandId" />
+      </Principal>
+      <Dependent Role="Car">
+        <PropertyRef Name="BrandId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Car_Customer">
+    <End Type="BDMekawashModel.Customer" Role="Customer" Multiplicity="0..1" />
+    <End Type="BDMekawashModel.Car" Role="Car" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="CustomerId" />
+      </Principal>
+      <Dependent Role="Car">
+        <PropertyRef Name="CustomerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Provider_Category">
     <End Type="BDMekawashModel.Category" Role="Category" Multiplicity="0..1" />
     <End Type="BDMekawashModel.Provider" Role="Provider" Multiplicity="*" />

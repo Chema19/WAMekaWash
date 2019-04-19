@@ -12,9 +12,11 @@ namespace WAMekaWash.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Schedule
+    public partial class Car
     {
-        public int ScheduleId { get; set; }
-        public System.TimeSpan Detail { get; set; }
+        public int CarId { get; set; }
+        public string Description { get; set; }
+        public Nullable<int> BrandId { get; set; }
+        public Nullable<int> CustomerId { get; set; }
     }
 }

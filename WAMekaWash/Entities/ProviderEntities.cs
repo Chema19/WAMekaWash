@@ -7,6 +7,7 @@ namespace WAMekaWash.Entities
 {
     public class ProviderEntities
     {
+        public Int32? ProviderId { set; get; }
         public String BusinessName { set; get; }
         public String Ruc { set; get; }
         public String Telephone { set; get; }

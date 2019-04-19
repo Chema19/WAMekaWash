@@ -14,21 +14,8 @@ namespace WAMekaWash.Models
     
     public partial class District
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public District()
-        {
-            this.Customer = new HashSet<Customer>();
-            this.Local = new HashSet<Local>();
-        }
-    
         public int DistrictId { get; set; }
         public string Name { get; set; }
         public int ProvinceId { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Customer> Customer { get; set; }
-        public virtual Province Province { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Local> Local { get; set; }
     }
 }

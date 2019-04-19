@@ -12,14 +12,9 @@ namespace WAMekaWash.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Reservation
+    public partial class Brand
     {
-        public int ReservationId { get; set; }
-        public int CustomerId { get; set; }
-        public Nullable<int> LocalId { get; set; }
-        public Nullable<int> ServiceId { get; set; }
-        public Nullable<System.TimeSpan> Schedule { get; set; }
-        public string Detail { get; set; }
-        public string Status { get; set; }
+        public int BrandId { get; set; }
+        public string Name { get; set; }
     }
 }

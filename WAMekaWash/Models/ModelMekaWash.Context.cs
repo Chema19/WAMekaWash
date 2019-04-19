@@ -25,6 +25,8 @@ namespace WAMekaWash.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Brand> Brand { get; set; }
+        public virtual DbSet<Car> Car { get; set; }
         public virtual DbSet<Category> Category { get; set; }
         public virtual DbSet<Customer> Customer { get; set; }
         public virtual DbSet<Department> Department { get; set; }
@@ -34,7 +36,6 @@ namespace WAMekaWash.Models
         public virtual DbSet<Province> Province { get; set; }
         public virtual DbSet<Qualification> Qualification { get; set; }
         public virtual DbSet<Reservation> Reservation { get; set; }
-        public virtual DbSet<Schedule> Schedule { get; set; }
         public virtual DbSet<Service> Service { get; set; }
     }
 }

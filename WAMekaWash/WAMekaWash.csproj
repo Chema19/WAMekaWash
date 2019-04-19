@@ -182,10 +182,11 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\BaseApiController.cs" />
-    <Compile Include="Controllers\CustomersController.cs" />
+    <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LocalController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\ProviderController.cs" />
     <Compile Include="Controllers\TokenGenerator.cs" />
     <Compile Include="Controllers\TokenValidationHandler.cs" />
     <Compile Include="Entities\CustomerEntities.cs" />
@@ -196,6 +197,12 @@
     </Compile>
     <Compile Include="Helpers\ConstantHelpers.cs" />
     <Compile Include="Logics\CipherLogic.cs" />
+    <Compile Include="Models\Brand.cs">
+      <DependentUpon>ModelMekaWash.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Car.cs">
+      <DependentUpon>ModelMekaWash.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Category.cs">
       <DependentUpon>ModelMekaWash.tt</DependentUpon>
     </Compile>
@@ -239,10 +246,10 @@
     <Compile Include="Models\Reservation.cs">
       <DependentUpon>ModelMekaWash.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Schedule.cs">
+    <Compile Include="Models\Service.cs">
       <DependentUpon>ModelMekaWash.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Service.cs">
+    <Compile Include="Models\sysdiagrams.cs">
       <DependentUpon>ModelMekaWash.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
