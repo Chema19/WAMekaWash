@@ -12,7 +12,7 @@ using WAMekaWash.Models;
 namespace WAMekaWash.Controllers
 {
     [Authorize]
-    [RoutePrefix("wamekawash/v4")]
+    [RoutePrefix("wamekawash/v5")]
     public class ServiceController : BaseApiController
     {
         [HttpGet]
@@ -24,17 +24,16 @@ namespace WAMekaWash.Controllers
             {
                 using (var ts = new TransactionScope())
                 {
-                    if (providerid.HasValue)
+                    if (localid.HasValue)
                     {
-                        response.Data = context.Local.Where(x => x.ProviderId == providerid).Select(x => new
+                        response.Data = context.Service.Where(x => x.LocalId == localid).Select(x => new
                         {
+                            ServiceId = x.ServiceId,
+                            Name = x.Name,
+                            Detail = x.Detail,
                             LocalId = x.LocalId,
-                            Address = x.Address,
-                            DistrictId = x.DistrictId,
-                            ProvinceId = x.ProvinceId,
-                            DepartmentId = x.DepartmentId,
-                            ProviderId = x.ProviderId,
-                            Punctuation = x.Punctuation,
+                            UrlPhoto = x.UrlPhoto,
+                            Cost = x.Cost,
                             Status = x.Status,
                         }).ToList();
 
@@ -45,7 +44,7 @@ namespace WAMekaWash.Controllers
                     {
                         response.Data = null;
                         response.Error = true;
-                        response.Message = "Error, Provider id empty";
+                        response.Message = "Error, local id empty";
                     }
                     ts.Complete();
                 }
@@ -61,22 +60,20 @@ namespace WAMekaWash.Controllers
         [Route("locals/{localid}/services/{serviceid}")]
         public IHttpActionResult ReadService(Int32? localid, Int32? serviceid)
         {
-
             try
             {
                 using (var ts = new TransactionScope())
                 {
-                    if (providerid.HasValue && localid.HasValue)
+                    if (serviceid.HasValue && localid.HasValue)
                     {
-                        response.Data = context.Local.Where(x => x.ProviderId == providerid && x.LocalId == localid).Select(x => new
+                        response.Data = context.Service.Where(x => x.ServiceId == serviceid && x.LocalId == localid).Select(x => new
                         {
+                            ServiceId = x.ServiceId,
+                            Name = x.Name,
+                            Detail = x.Detail,
                             LocalId = x.LocalId,
-                            Address = x.Address,
-                            DistrictId = x.DistrictId,
-                            ProvinceId = x.ProvinceId,
-                            DepartmentId = x.DepartmentId,
-                            ProviderId = x.ProviderId,
-                            Punctuation = x.Punctuation,
+                            UrlPhoto = x.UrlPhoto,
+                            Cost = x.Cost,
                             Status = x.Status,
                         }).ToList();
                         response.Error = false;
@@ -86,7 +83,7 @@ namespace WAMekaWash.Controllers
                     {
                         response.Data = null;
                         response.Error = true;
-                        response.Message = "Error, provider or local id empty";
+                        response.Message = "Error, service or local id empty";
                     }
                     ts.Complete();
                 }
@@ -115,33 +112,32 @@ namespace WAMekaWash.Controllers
                     }
                     else
                     {
-                        Local local = new Local();
+                        Service service = new Service();
 
-                        if (!providerid.HasValue)
+                        if (!localid.HasValue)
                         {
                             response.Data = null;
                             response.Error = true;
-                            response.Message = "Error, provider empty";
+                            response.Message = "Error, local empty";
                             return Content(HttpStatusCode.BadRequest, response);
                         }
                         else
                         {
 
-                            context.Local.Add(local);
+                            context.Service.Add(service);
 
-                            local.Address = model.Address;
-                            local.ProviderId = providerid;
-                            local.Punctuation = model.Punctuation;
-                            local.Status = ConstantHelpers.Status.ACTIVE;
-                            local.DepartmentId = model.DepartmentId.Value;
-                            local.ProvinceId = model.ProvinceId.Value;
-                            local.DistrictId = model.DistrictId.Value;
+                            service.Name = model.Name;
+                            service.Detail = model.Detail;
+                            service.LocalId = localid;
+                            service.UrlPhoto = model.UrlPhoto;
+                            service.Cost = model.Cost;
+                            service.Status = ConstantHelpers.Status.ACTIVE;
 
                             context.SaveChanges();
 
                             response.Data = null;
                             response.Error = false;
-                            response.Message = "Success, saved local";
+                            response.Message = "Success, saved service";
                         }
 
                         ts.Complete();
@@ -162,23 +158,23 @@ namespace WAMekaWash.Controllers
             {
                 using (var ts = new TransactionScope())
                 {
-                    if (providerid.HasValue && localid.HasValue)
+                    if (serviceid.HasValue && localid.HasValue)
                     {
-                        Local local = new Local();
-                        local = context.Local.FirstOrDefault(x => x.ProviderId == providerid && x.LocalId == localid);
+                        Service service = new Service();
+                        service = context.Service.FirstOrDefault(x => x.ServiceId == serviceid && x.LocalId == localid);
 
-                        local.Status = ConstantHelpers.Status.INACTIVE;
+                        service.Status = ConstantHelpers.Status.INACTIVE;
 
                         context.SaveChanges();
                         response.Data = null;
                         response.Error = false;
-                        response.Message = "Success, deleted local";
+                        response.Message = "Success, deleted service";
                     }
                     else
                     {
                         response.Data = null;
                         response.Error = true;
-                        response.Message = "Error, provider or local id empty";
+                        response.Message = "Error, service or local id empty";
                     }
                     ts.Complete();
                 }
@@ -206,25 +202,23 @@ namespace WAMekaWash.Controllers
                     }
                     else
                     {
-                        Local local = new Local();
+                        Service service = new Service();
 
 
-                        if (model.LocalId.HasValue && providerid.HasValue)
+                        if (model.ServiceId.HasValue && localid.HasValue)
                         {
-                            local = context.Local.FirstOrDefault(x => x.ProviderId == providerid && x.LocalId == model.LocalId);
+                            service = context.Service.FirstOrDefault(x => x.LocalId == localid && x.ServiceId == model.ServiceId);
 
-                            local.Address = model.Address;
-                            local.ProviderId = providerid;
-                            local.Punctuation = model.Punctuation;
-                            local.Status = ConstantHelpers.Status.ACTIVE;
-                            local.DepartmentId = model.DepartmentId.Value;
-                            local.ProvinceId = model.ProvinceId.Value;
-                            local.DistrictId = model.DistrictId.Value;
+                            service.Name = model.Name;
+                            service.Detail = model.Detail;
+                            service.LocalId = localid;
+                            service.UrlPhoto = model.UrlPhoto;
+                            service.Cost = model.Cost;
                             context.SaveChanges();
 
                             response.Data = null;
                             response.Error = false;
-                            response.Message = "Success, updated customer";
+                            response.Message = "Success, updated service";
                         }
                         else
                         {

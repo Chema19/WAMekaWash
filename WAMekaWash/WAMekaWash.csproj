@@ -187,6 +187,7 @@
     <Compile Include="Controllers\LocalController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ProviderController.cs" />
+    <Compile Include="Controllers\ReservationController.cs" />
     <Compile Include="Controllers\ServiceController.cs" />
     <Compile Include="Controllers\TokenGenerator.cs" />
     <Compile Include="Controllers\TokenValidationHandler.cs" />
@@ -194,6 +195,7 @@
     <Compile Include="Entities\LocalEntities.cs" />
     <Compile Include="Entities\ProviderEntities.cs" />
     <Compile Include="Entities\ResultRequest.cs" />
+    <Compile Include="Entities\ServiceEntities.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

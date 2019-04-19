@@ -212,7 +212,6 @@ namespace WAMekaWash.Controllers
                             local.Address = model.Address;
                             local.ProviderId = providerid;
                             local.Punctuation = model.Punctuation;
-                            local.Status = ConstantHelpers.Status.ACTIVE;
                             local.DepartmentId = model.DepartmentId.Value;
                             local.ProvinceId = model.ProvinceId.Value;
                             local.DistrictId = model.DistrictId.Value;
@@ -220,7 +219,7 @@ namespace WAMekaWash.Controllers
 
                             response.Data = null;
                             response.Error = false;
-                            response.Message = "Success, updated customer";
+                            response.Message = "Success, updated local";
                         }
                         else
                         {
