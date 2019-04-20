@@ -11,8 +11,12 @@ namespace WAMekaWash.Entities
         public Int32? CustomerId { set; get; }
         public Int32? LocalId { set; get; }
         public Int32? ServiceId { set; get; }
-        public TimeSpan Schedule { set; get; }
+        public TimeSpan? Schedule { set; get; }
         public String Detail { set; get; }
         public String Status { set; get; }
+        public Int32? CarId { set; get; }
+        public DateTime? Fecha { set; get; }
+        public String Cotización {set;get;}
+        public String MessageProvider { set; get; }
     }
 }

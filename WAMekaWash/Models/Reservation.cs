@@ -21,7 +21,12 @@ namespace WAMekaWash.Models
         public Nullable<System.TimeSpan> Schedule { get; set; }
         public string Detail { get; set; }
         public string Status { get; set; }
+        public Nullable<int> CarId { get; set; }
+        public Nullable<System.DateTime> Fecha { get; set; }
+        public string Cotization { get; set; }
+        public string MessageProvider { get; set; }
     
+        public virtual Car Car { get; set; }
         public virtual Customer Customer { get; set; }
         public virtual Local Local { get; set; }
         public virtual Service Service { get; set; }

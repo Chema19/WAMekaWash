@@ -35,6 +35,7 @@ namespace WAMekaWash.Controllers
                             ProviderId = x.ProviderId,
                             Punctuation = x.Punctuation,
                             Status = x.Status,
+                            Telefono = x.Telefono
                         }).ToList();
 
                         response.Error = false;
@@ -76,6 +77,7 @@ namespace WAMekaWash.Controllers
                             ProviderId = x.ProviderId,
                             Punctuation = x.Punctuation,
                             Status = x.Status,
+                            Telefono = x.Telefono
                         }).ToList();
                         response.Error = false;
                         response.Message = "Success";
@@ -133,7 +135,7 @@ namespace WAMekaWash.Controllers
                             local.DepartmentId = model.DepartmentId.Value;
                             local.ProvinceId = model.ProvinceId.Value;
                             local.DistrictId = model.DistrictId.Value;
-
+                            local.Telefono = model.Telefono;
                             context.SaveChanges();
 
                             response.Data = null;
@@ -175,6 +177,7 @@ namespace WAMekaWash.Controllers
                         response.Data = null;
                         response.Error = true;
                         response.Message = "Error, provider or local id empty";
+                        return Content(HttpStatusCode.BadRequest, response);
                     }
                     ts.Complete();
                 }
@@ -215,6 +218,8 @@ namespace WAMekaWash.Controllers
                             local.DepartmentId = model.DepartmentId.Value;
                             local.ProvinceId = model.ProvinceId.Value;
                             local.DistrictId = model.DistrictId.Value;
+                            local.Telefono = model.Telefono;
+
                             context.SaveChanges();
 
                             response.Data = null;
@@ -226,6 +231,7 @@ namespace WAMekaWash.Controllers
                             response.Data = null;
                             response.Error = true;
                             response.Message = "Error, Local or provider id empty";
+                            return Content(HttpStatusCode.BadRequest, response);
                         }
                         
                         ts.Complete();

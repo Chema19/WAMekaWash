@@ -37,5 +37,6 @@ namespace WAMekaWash.Models
         public virtual DbSet<Qualification> Qualification { get; set; }
         public virtual DbSet<Reservation> Reservation { get; set; }
         public virtual DbSet<Service> Service { get; set; }
+        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
     }
 }

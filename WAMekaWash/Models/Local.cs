@@ -30,6 +30,7 @@ namespace WAMekaWash.Models
         public Nullable<int> ProviderId { get; set; }
         public Nullable<int> Punctuation { get; set; }
         public string Status { get; set; }
+        public string Telefono { get; set; }
     
         public virtual Department Department { get; set; }
         public virtual District District { get; set; }

@@ -24,7 +24,7 @@ namespace WAMekaWash.Controllers
             {
                 using (var ts = new TransactionScope())
                 {
-                    response.Data = context.Provider.Where(x=>x.Status == ConstantHelpers.Status.ACTIVE).Select(x => new
+                    response.Data = context.Provider.Where(x => x.Status == ConstantHelpers.Status.ACTIVE).Select(x => new
                     {
                         ProviderId = x.ProviderId,
                         BusinessName = x.BusinessName,
@@ -33,7 +33,9 @@ namespace WAMekaWash.Controllers
                         Email = x.Email,
                         CategoryId = x.CategoryId,
                         Password = x.Password,
-                        Status = x.Status
+                        Status = x.Status,
+                        Logo = x.Logo,
+                        Description = x.Description,
                     }).ToList();
 
                     response.Error = false;
@@ -66,7 +68,9 @@ namespace WAMekaWash.Controllers
                             Email = x.Email,
                             CategoryId = x.CategoryId,
                             Password = x.Password,
-                            Status = x.Status
+                            Status = x.Status,
+                            Logo = x.Logo,
+                            Description = x.Description,
                         }).ToList();
                         response.Error = false;
                         response.Message = "Success";
@@ -138,7 +142,8 @@ namespace WAMekaWash.Controllers
                             provider.Email = model.Email;
                             provider.CategoryId = model.CategoryId;
                             provider.Password = CipherLogic.Cipher(CipherAction.Encrypt, CipherType.UserPassword, model.Password);
-
+                            provider.Logo = model.Logo;
+                            provider.Description = model.Description;
                             context.SaveChanges();
 
                             response.Data = null;

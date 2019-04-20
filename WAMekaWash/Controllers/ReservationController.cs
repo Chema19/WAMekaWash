@@ -26,7 +26,7 @@ namespace WAMekaWash.Controllers
                 {
                     if (localid.HasValue)
                     {
-                        response.Data = context.Reservation.Where(x => x.LocalId == localid && x.Status == ConstantHelpers.Status.ACTIVE).Select(x => new
+                        response.Data = context.Reservation.Where(x => x.LocalId == localid && x.Status == ConstantHelpers.Status.ACTIVE || x.Status == ConstantHelpers.Status.ACCEPTED || x.Status == ConstantHelpers.Status.CANCEL || x.Status == ConstantHelpers.Status.FINISH).Select(x => new
                         {
                             ReservationId = x.ReservationId,
                             CustomerId = x.CustomerId,
@@ -35,6 +35,10 @@ namespace WAMekaWash.Controllers
                             Schedule = x.Schedule,
                             Detail = x.Detail,
                             Status = x.Status,
+                            Car = x.CarId,
+                            Fecha = x.Fecha,
+                            Cotizacion = x.Cotization,
+                            MessageProvider = x.MessageProvider
                         }).ToList();
 
                         response.Error = false;
@@ -75,6 +79,10 @@ namespace WAMekaWash.Controllers
                             Schedule = x.Schedule,
                             Detail = x.Detail,
                             Status = x.Status,
+                            Car = x.CarId,
+                            Fecha = x.Fecha,
+                            Cotizacion = x.Cotization,
+                            MessageProvider = x.MessageProvider
                         }).ToList();
                         response.Error = false;
                         response.Message = "Success";
@@ -95,8 +103,66 @@ namespace WAMekaWash.Controllers
             }
 
         }
-       
+        [HttpPost]
+        [Route("locals/{localid}/reservations")]
+        public IHttpActionResult AcceptCancelReservationProvider(Int32? localid, ReservationEntities model)
+        {
+            try
+            {
+                using (var ts = new TransactionScope())
+                {
+                    if (model == null)
+                    {
+                        response.Data = null;
+                        response.Error = true;
+                        response.Message = "Error, Empty model";
+                        return Content(HttpStatusCode.BadRequest, response);
+                    }
+                    else
+                    {
+                        Reservation reservation = new Reservation();
 
+                        if (!localid.HasValue)
+                        {
+                            response.Data = null;
+                            response.Error = true;
+                            response.Message = "Error, local empty";
+                            return Content(HttpStatusCode.BadRequest, response);
+                        }
+                        else
+                        {
+
+                            reservation = context.Reservation.FirstOrDefault(x => x.LocalId == localid && x.ReservationId == model.ReservationId);
+
+                            if (model.Status == ConstantHelpers.Status.ACCEPTED)
+                            {
+                                reservation.Status = ConstantHelpers.Status.ACCEPTED;
+                            }
+                            else if(model.Status == ConstantHelpers.Status.CANCEL){
+                                reservation.Status = ConstantHelpers.Status.CANCEL;
+                            }else{
+                                reservation.Status = ConstantHelpers.Status.FINISH;
+                            }
+                            reservation.MessageProvider = model.MessageProvider;
+
+                            context.SaveChanges();
+
+                            response.Data = null;
+                            response.Error = false;
+                            response.Message = "Success, saved reservation";
+                        }
+
+                        ts.Complete();
+                    }
+                }
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return Unauthorized();
+            }
+        }
+        
 
         [HttpGet]
         [Route("customers/{customerid}/reservations")]
@@ -118,6 +184,9 @@ namespace WAMekaWash.Controllers
                             Schedule = x.Schedule,
                             Detail = x.Detail,
                             Status = x.Status,
+                            Car = x.CarId,
+                            Fecha = x.Fecha,
+                            Cotizacion = x.Cotization,
                         }).ToList();
 
                         response.Error = false;
@@ -158,6 +227,9 @@ namespace WAMekaWash.Controllers
                             Schedule = x.Schedule,
                             Detail = x.Detail,
                             Status = x.Status,
+                            Car = x.CarId,
+                            Fecha = x.Fecha,
+                            Cotizacion = x.Cotization,
                         }).ToList();
                         response.Error = false;
                         response.Message = "Success";
@@ -180,7 +252,7 @@ namespace WAMekaWash.Controllers
         }
         [HttpPost]
         [Route("customers/{customerid}/reservations")]
-        public IHttpActionResult RegisterServiceCustomer(Int32? customerid, ReservationEntities model)
+        public IHttpActionResult RegisterReservationCustomer(Int32? customerid, ReservationEntities model)
         {
             try
             {
@@ -215,6 +287,9 @@ namespace WAMekaWash.Controllers
                             reservation.Schedule = model.Schedule;
                             reservation.Detail = model.Detail;
                             reservation.Status = ConstantHelpers.Status.ACTIVE;
+                            reservation.CarId = model.CarId;
+                            reservation.Fecha = model.Fecha;
+                            reservation.Cotization = model.Cotización;
 
                             context.SaveChanges();
 
@@ -235,7 +310,7 @@ namespace WAMekaWash.Controllers
         }
         [HttpDelete]
         [Route("customers/{customerid}/reservations/{reservationid}")]
-        public IHttpActionResult DeleteServiceCustomer(Int32? customerid, Int32? reservationid)
+        public IHttpActionResult DeleteReservationCustomer(Int32? customerid, Int32? reservationid)
         {
             try
             {
@@ -270,7 +345,7 @@ namespace WAMekaWash.Controllers
         }
         [HttpPut]
         [Route("customers/{customerid}/reservations")]
-        public IHttpActionResult UpdateServiceCustomer(Int32? customerid, ReservationEntities model)
+        public IHttpActionResult UpdateReservationCustomer(Int32? customerid, ReservationEntities model)
         {
             try
             {
@@ -288,9 +363,9 @@ namespace WAMekaWash.Controllers
                         Reservation reservation = new Reservation();
 
 
-                        if (model.ServiceId.HasValue && customerid.HasValue)
+                        if (model.ReservationId.HasValue && customerid.HasValue)
                         {
-                            reservation = context.Reservation.FirstOrDefault(x => x.CustomerId == customerid && x.ServiceId == model.ServiceId);
+                            reservation = context.Reservation.FirstOrDefault(x => x.CustomerId == customerid && x.ReservationId == model.ReservationId);
 
                             reservation.CustomerId = customerid.Value;
                             reservation.LocalId = model.LocalId;
@@ -298,6 +373,9 @@ namespace WAMekaWash.Controllers
                             reservation.Schedule = model.Schedule;
                             reservation.Detail = model.Detail;
                             reservation.Status = ConstantHelpers.Status.ACTIVE;
+                            reservation.CarId = model.CarId;
+                            reservation.Fecha = model.Fecha;
+                            reservation.Cotization = model.Cotización;
 
                             context.SaveChanges();
 

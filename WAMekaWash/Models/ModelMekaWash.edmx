@@ -20,6 +20,7 @@
           <Property Name="Description" Type="varchar(max)" />
           <Property Name="BrandId" Type="int" />
           <Property Name="CustomerId" Type="int" />
+          <Property Name="Placa" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="Category">
           <Key>
@@ -72,6 +73,7 @@
           <Property Name="ProviderId" Type="int" />
           <Property Name="Punctuation" Type="int" />
           <Property Name="Status" Type="varchar" MaxLength="3" />
+          <Property Name="Telefono" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="Provider">
           <Key>
@@ -85,6 +87,8 @@
           <Property Name="Status" Type="varchar" MaxLength="3" Nullable="false" />
           <Property Name="CategoryId" Type="int" />
           <Property Name="Password" Type="varchar(max)" />
+          <Property Name="Logo" Type="varchar(max)" />
+          <Property Name="Description" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="Province">
           <Key>
@@ -115,6 +119,10 @@
           <Property Name="Schedule" Type="time" Precision="7" />
           <Property Name="Detail" Type="varchar(max)" />
           <Property Name="Status" Type="varchar" MaxLength="3" />
+          <Property Name="CarId" Type="int" />
+          <Property Name="Fecha" Type="datetime" />
+          <Property Name="Cotization" Type="varchar" MaxLength="2" />
+          <Property Name="MessageProvider" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="Service">
           <Key>
@@ -127,6 +135,16 @@
           <Property Name="UrlPhoto" Type="varchar(max)" />
           <Property Name="Cost" Type="decimal" Precision="18" Scale="4" />
           <Property Name="Status" Type="varchar" MaxLength="3" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <Association Name="FK_Car_Brand">
           <End Role="Brand" Type="Self.Brand" Multiplicity="0..1" />
@@ -296,6 +314,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Reservation_Car">
+          <End Role="Car" Type="Self.Car" Multiplicity="0..1" />
+          <End Role="Reservation" Type="Self.Reservation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Car">
+              <PropertyRef Name="CarId" />
+            </Principal>
+            <Dependent Role="Reservation">
+              <PropertyRef Name="CarId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Reservation_Customer">
           <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
           <End Role="Reservation" Type="Self.Reservation" Multiplicity="*" />
@@ -357,6 +387,7 @@
           <EntitySet Name="Qualification" EntityType="Self.Qualification" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Reservation" EntityType="Self.Reservation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Service" EntityType="Self.Service" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Car_Brand" Association="Self.FK_Car_Brand">
             <End Role="Brand" EntitySet="Brand" />
             <End Role="Car" EntitySet="Car" />
@@ -413,6 +444,10 @@
             <End Role="Local" EntitySet="Local" />
             <End Role="Qualification" EntitySet="Qualification" />
           </AssociationSet>
+          <AssociationSet Name="FK_Reservation_Car" Association="Self.FK_Reservation_Car">
+            <End Role="Car" EntitySet="Car" />
+            <End Role="Reservation" EntitySet="Reservation" />
+          </AssociationSet>
           <AssociationSet Name="FK_Reservation_Customer" Association="Self.FK_Reservation_Customer">
             <End Role="Customer" EntitySet="Customer" />
             <End Role="Reservation" EntitySet="Reservation" />
@@ -447,6 +482,7 @@
           <EntitySet Name="Qualification" EntityType="BDMekawashModel.Qualification" />
           <EntitySet Name="Reservation" EntityType="BDMekawashModel.Reservation" />
           <EntitySet Name="Service" EntityType="BDMekawashModel.Service" />
+          <EntitySet Name="sysdiagrams" EntityType="BDMekawashModel.sysdiagrams" />
           <AssociationSet Name="FK_Car_Brand" Association="BDMekawashModel.FK_Car_Brand">
             <End Role="Brand" EntitySet="Brand" />
             <End Role="Car" EntitySet="Car" />
@@ -454,6 +490,10 @@
           <AssociationSet Name="FK_Car_Customer" Association="BDMekawashModel.FK_Car_Customer">
             <End Role="Customer" EntitySet="Customer" />
             <End Role="Car" EntitySet="Car" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reservation_Car" Association="BDMekawashModel.FK_Reservation_Car">
+            <End Role="Car" EntitySet="Car" />
+            <End Role="Reservation" EntitySet="Reservation" />
           </AssociationSet>
           <AssociationSet Name="FK_Provider_Category" Association="BDMekawashModel.FK_Provider_Category">
             <End Role="Category" EntitySet="Category" />
@@ -536,8 +576,10 @@
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="BrandId" Type="Int32" />
           <Property Name="CustomerId" Type="Int32" />
+          <Property Name="Placa" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Brand" Relationship="BDMekawashModel.FK_Car_Brand" FromRole="Car" ToRole="Brand" />
           <NavigationProperty Name="Customer" Relationship="BDMekawashModel.FK_Car_Customer" FromRole="Car" ToRole="Customer" />
+          <NavigationProperty Name="Reservation" Relationship="BDMekawashModel.FK_Reservation_Car" FromRole="Car" ToRole="Reservation" />
         </EntityType>
         <EntityType Name="Category">
           <Key>
@@ -603,6 +645,7 @@
           <Property Name="ProviderId" Type="Int32" />
           <Property Name="Punctuation" Type="Int32" />
           <Property Name="Status" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="Telefono" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Department" Relationship="BDMekawashModel.FK_Local_Department" FromRole="Local" ToRole="Department" />
           <NavigationProperty Name="District" Relationship="BDMekawashModel.FK_Local_District" FromRole="Local" ToRole="District" />
           <NavigationProperty Name="Provider" Relationship="BDMekawashModel.FK_Local_Provider" FromRole="Local" ToRole="Provider" />
@@ -623,6 +666,8 @@
           <Property Name="Status" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
           <Property Name="CategoryId" Type="Int32" />
           <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Logo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Category" Relationship="BDMekawashModel.FK_Provider_Category" FromRole="Provider" ToRole="Category" />
           <NavigationProperty Name="Local" Relationship="BDMekawashModel.FK_Local_Provider" FromRole="Provider" ToRole="Local" />
         </EntityType>
@@ -661,6 +706,11 @@
           <Property Name="Schedule" Type="Time" Precision="7" />
           <Property Name="Detail" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Status" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="CarId" Type="Int32" />
+          <Property Name="Fecha" Type="DateTime" Precision="3" />
+          <Property Name="Cotization" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="MessageProvider" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Car" Relationship="BDMekawashModel.FK_Reservation_Car" FromRole="Reservation" ToRole="Car" />
           <NavigationProperty Name="Customer" Relationship="BDMekawashModel.FK_Reservation_Customer" FromRole="Reservation" ToRole="Customer" />
           <NavigationProperty Name="Local" Relationship="BDMekawashModel.FK_Reservation_Local" FromRole="Reservation" ToRole="Local" />
           <NavigationProperty Name="Service" Relationship="BDMekawashModel.FK_Reservation_Servicio" FromRole="Reservation" ToRole="Service" />
@@ -678,6 +728,16 @@
           <Property Name="Status" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Local" Relationship="BDMekawashModel.FK_Servicio_Local" FromRole="Service" ToRole="Local" />
           <NavigationProperty Name="Reservation" Relationship="BDMekawashModel.FK_Reservation_Servicio" FromRole="Service" ToRole="Reservation" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <Association Name="FK_Car_Brand">
           <End Type="BDMekawashModel.Brand" Role="Brand" Multiplicity="0..1" />
@@ -700,6 +760,18 @@
             </Principal>
             <Dependent Role="Car">
               <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reservation_Car">
+          <End Type="BDMekawashModel.Car" Role="Car" Multiplicity="0..1" />
+          <End Type="BDMekawashModel.Reservation" Role="Reservation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Car">
+              <PropertyRef Name="CarId" />
+            </Principal>
+            <Dependent Role="Reservation">
+              <PropertyRef Name="CarId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -912,6 +984,7 @@
           <EntitySetMapping Name="Car">
             <EntityTypeMapping TypeName="BDMekawashModel.Car">
               <MappingFragment StoreEntitySet="Car">
+                <ScalarProperty Name="Placa" ColumnName="Placa" />
                 <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
                 <ScalarProperty Name="BrandId" ColumnName="BrandId" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
@@ -965,6 +1038,7 @@
           <EntitySetMapping Name="Local">
             <EntityTypeMapping TypeName="BDMekawashModel.Local">
               <MappingFragment StoreEntitySet="Local">
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="Punctuation" ColumnName="Punctuation" />
                 <ScalarProperty Name="ProviderId" ColumnName="ProviderId" />
@@ -979,6 +1053,8 @@
           <EntitySetMapping Name="Provider">
             <EntityTypeMapping TypeName="BDMekawashModel.Provider">
               <MappingFragment StoreEntitySet="Provider">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Logo" ColumnName="Logo" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
@@ -1013,6 +1089,10 @@
           <EntitySetMapping Name="Reservation">
             <EntityTypeMapping TypeName="BDMekawashModel.Reservation">
               <MappingFragment StoreEntitySet="Reservation">
+                <ScalarProperty Name="MessageProvider" ColumnName="MessageProvider" />
+                <ScalarProperty Name="Cotization" ColumnName="Cotization" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="CarId" ColumnName="CarId" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="Detail" ColumnName="Detail" />
                 <ScalarProperty Name="Schedule" ColumnName="Schedule" />
@@ -1033,6 +1113,17 @@
                 <ScalarProperty Name="Detail" ColumnName="Detail" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ServiceId" ColumnName="ServiceId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="BDMekawashModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

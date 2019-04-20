@@ -14,6 +14,8 @@ namespace WAMekaWash.Entities
         public String Email { set; get; }
         public Int32? CategoryId { set; get; }
         public String Password { set; get; }
+        public String Logo { set; get; }
+        public String Description { set; get; }
     }
 }
 

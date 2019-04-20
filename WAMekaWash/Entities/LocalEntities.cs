@@ -15,5 +15,6 @@ namespace WAMekaWash.Entities
         public Int32? ProviderId { set; get; }
         public Int32? Punctuation { set; get; }
         public String Status { set; get; }
+        public String Telefono { set; get; }
     }
 }

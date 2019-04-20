@@ -23,7 +23,6 @@ namespace WAMekaWash.Controllers
         {
             try
             {
-
                 if (model == null)
                 {
                     response.Data = null;
@@ -154,7 +153,9 @@ namespace WAMekaWash.Controllers
                             provider.Email = model.Email;
                             provider.Status = ConstantHelpers.Status.ACTIVE;
                             provider.CategoryId = model.CategoryId;
-                            provider.Password = CipherLogic.Cipher(CipherAction.Encrypt, CipherType.UserPassword,model.Password);
+                            provider.Password = CipherLogic.Cipher(CipherAction.Encrypt, CipherType.UserPassword, model.Password);
+                            provider.Logo = model.Logo;
+                            provider.Description = model.Description;
 
                             context.SaveChanges();
 

@@ -15,6 +15,7 @@ namespace WAMekaWash.Helpers
         {
             public const string ACTIVE = "ACT";
             public const string INACTIVE = "INA";
+            public const string ACCEPTED = "ACE";
             public const string FINISH = "FIN";
             public const string CANCEL = "CAN";
         }

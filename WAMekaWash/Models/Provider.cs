@@ -28,6 +28,8 @@ namespace WAMekaWash.Models
         public string Status { get; set; }
         public Nullable<int> CategoryId { get; set; }
         public string Password { get; set; }
+        public string Logo { get; set; }
+        public string Description { get; set; }
     
         public virtual Category Category { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
